@@ -1,0 +1,206 @@
+<ion-view view-title="Intro">
+
+<ion-side-menus>
+ <ion-side-menu-content>
+<div class="row bar bar-header">
+        <div class="col col-20">
+            <button menu-toggle="left" ng-hide="$exposeAside.active" class="button button-icon button-clear ion-navicon"></button>
+        </div>
+        <div class="col col-60">
+             <div class="inner_logo">
+                Post Ads
+            </div>
+        </div>
+        <div class="col col-20">
+            <button class="button button-icon button-clear">
+            	<i class="ion-android-search"></i>
+            </button>
+        </div>
+    </div>
+  <ion-content class="has-header post-ads"style="background: #eeeeee;" >
+  			<!--<div class="list post-ads-list">
+  				<div class="item">
+  					<img src="../img/post-ads.png" />
+  				</div>
+  				
+  			</div>-->
+  			<div class="list">
+			  <label class="item item-input select-no-lt-pad">
+			    <!--<div class="input-label" style="color: #666;">
+			      Style
+			    </div>-->			    
+			    <select>
+			      <option>Blue</option>
+			      <option selected>Vintage</option>
+			      <option>Bohemian</option>
+			      <option>Chic</option>
+			      <option>Sexy</option>
+			    </select>
+			  </label>
+			  
+			  <label class="item item-input select-no-lt-pad">
+			    <!--<div class="input-label" style="color: #666;">
+			      Category
+			    </div>-->
+			    <select>
+			      <option>Beauty</option>
+			      <option selected>Watches</option>
+			      <option>Bag</option>
+			    </select>
+			  </label>
+
+			  <label class="item item-input select-no-lt-pad">
+			   <!-- <div class="input-label" style="color: #666;">
+			      Sub Category
+			    </div>-->
+			    <select>
+			      <option>Sub Category</option>
+			      <option selected>Sub Category</option>
+			    </select>
+			  </label>
+			  
+			  <label class="item item-input item-floating-label select-no-lt-pad">
+			    <span class="input-label">Name</span>
+			    <input type="text" placeholder="Name">
+			  </label>
+		
+			  <label class="item item-input"  style="border-bottom: none; padding-left: 0;">
+			  	<div class=" item-floating-label valu-left">
+			  		<span class="input-label">Value</span>
+			    	<input type="text" placeholder="Enter product value" style="padding-left: 0;">
+			  	</div>
+				<div class=" item-floating-label valu-right">
+			    	<select>
+			      <option>ADP</option>
+			      <option selected>AED</option>
+			    </select>
+			  	</div>			    
+			  </label>
+
+			  <label class="item item-input item-floating-label select-no-lt-pad">
+			    <span class="input-label">Quantity</span>
+			    <input type="text" placeholder="Enter Quantity">
+			  </label>
+			  
+			  <label class="item item-input item-floating-label textarea select-no-lt-pad">
+			    <span class="input-label">Description</span>
+			    <textarea style="background: transparent;" placeholder="Enter Description"></textarea>
+			    
+			  </label>
+			  
+			 <label class="item item-input select-no-lt-pad">
+			    <!--<div class="input-label" style="color: #666;">
+			      Used/New
+			    </div>-->
+			   
+			    <select>
+			      <option value="Sub Category">Select Type</option>
+			      <option selected="" value="Used">Used</option>
+			      <option selected="" value="Used">New</option>
+			    </select>
+			  </label>
+			  
+			  <label class="item item-input item-floating-label">
+			    <h4 class="item-condition">Item Condition</h4>
+			    <div class="round-area"></div>
+			  </label>
+			  
+			  <label class="item item-input item-floating-label select-no-lt-pad">
+			    <span class="input-label">Location</span>
+			    <input placeholder="Enter Product Location" type="text">
+			  </label>
+			  <h4 class="more-photo-text">More Photo</h4>
+			  <div class="item item-input" style="border-bottom: none;">
+					
+			    	<div class="more-pics">
+			    		<img src="../img/pro-pic-i.jpg" />
+			    	</div>
+			    	<div class="more-pics">
+			    		<button class="button button-light"> <i class="icon ion-android-add-circle"></i> </button>
+			    	</div>
+			    	<div class="more-pics">
+			    		<button class="button button-light"> <i class="icon ion-android-add-circle"></i> </button>
+			    	</div>
+
+
+			  </div>
+			  
+			  <div class="item" style="background: transparent;">
+			  	<button class="button button-block button-royal" style="background: #e55994; border: none; font-family: 'Exo 2', sans-serif; box-shadow: none; margin-top: 0px;">Post</button>
+			  </div>
+			  
+
+			</div>	     
+	  		
+
+  		
+
+	   
+	
+
+  </ion-content>
+  <!--<div class="tabs tabs-icon-top footer-icon-bar">
+		<a class="tab-item" style="color: #888888;"><i class="icon ion-android-notifications"></i> Notification</a>
+		<a class="tab-item" style="color: #888888;"><i class="icon ion-heart"></i> Favourite</a>
+		<a class="tab-item" style="color: #888888;"><i class="icon ion-ios-cart"></i> Cart</a>
+	</div>-->
+	 </ion-side-menu-content>
+	  <ion-side-menu expose-aside-when="large" class="sidebar_bg">
+       
+        <ion-content>
+          <!--<div class="item item-avatar">
+	    	<img src="../img/profile.jpg">
+	   	 	<h2 style="color: #fff;">Boka’s Notes</h2>
+	   	 	<p style="color: #fff;">Lorem Ipsum</p>
+	 	  </div>-->
+          <div class="background_sidebar">
+            <a class="item item-icon-right" href="#">
+		    <span class="sidebar_span"><img src="../img/profile.png" /></span>
+		    <span class="sidebar_word"> Profile</span>
+		    <span><i style="right: 5px;font-size: 21px;color: #fff;" class="icon ion-ios-arrow-right"></i></span>
+		    <img src="../img/border.png" style="width: 100%;"/>
+		  </a>
+
+		  <a class="item item-icon-right" href="#">
+		    <span class="sidebar_span"><img src="../img/edit_profile.png" /></span>
+		    <span class="sidebar_word"> Edit Profile</span>
+		    <span><i style="right: 5px;font-size: 21px;color: #fff;" class="icon ion-ios-arrow-right"></i></span>
+		  </a>
+
+		  <a class="item item-icon-right" href="#">
+		    <span class="sidebar_span"><img src="../img/notification.png" /></span>
+		    <span class="sidebar_word"> Notification</span>
+		    <span><i style="right: 5px;font-size: 21px;color: #fff;" class="icon ion-ios-arrow-right"></i></span>
+		  </a>
+		   <a class="item item-icon-right" href="#">
+		    <span class="sidebar_span"><img src="../img/watchlist.png" /></span>
+		    <span class="sidebar_word"> Watch list</span>
+		    <span><i style="right: 5px;font-size: 21px;color: #fff;" class="icon ion-ios-arrow-right"></i></span>
+		  </a>
+
+		  <a class="item item-icon-right" href="#">
+		    <span class="sidebar_span"><img src="../img/message.png" /></span>
+		    <span class="sidebar_word"> Message</span>
+		    <span><i style="right: 5px;font-size: 21px;color: #fff;" class="icon ion-ios-arrow-right"></i></span>
+		  </a>
+
+		 <a class="item item-icon-right" href="#">
+		    <span class="sidebar_span"><img src="../img/category.png" /></span>
+		    <span class="sidebar_word"> Category</span>
+		    <span><i style="right: 5px;font-size: 21px;color: #fff;" class="icon ion-ios-arrow-right"></i></span>
+		    
+		  </a>
+		  
+          </div>
+        </ion-content>
+      </ion-side-menu>
+      
+    </ion-side-menus>
+</ion-view>
+
+
+
+
+<style>
+	
+</style>

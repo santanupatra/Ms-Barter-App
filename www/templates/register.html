@@ -1,0 +1,112 @@
+<ion-view view-title="Register">
+  <ion-content class="login-wrapper padding slide_height" style="z-index:999999999">
+  	<!--<div class="bar bar-header" style="position: static;">
+        <div class="buttons buttons-left header-item">
+            <span class="left-buttons">
+                <a href="#/sign_up"><button class="button button-icon button-clear ion-ios-arrow-left"></button></a>
+            </span>
+        </div>
+        <div class="h1 title">Create account</div>
+    </div>-->
+	<div class="animated slideInRight">
+		<div class="login_holder">
+			<img ng-src="img/login-logo.png" alt="" class="login_logo"/>
+			 
+			
+			
+			<div class="list padding-right padding-left">
+                            
+			<form name="signupForm"  class="" novalidate ng-cloak>
+			
+                            
+                            <label class="item item-input-inset">
+						<i class="icon ion-android-person placeholder-icon"></i>
+						<input type="text" name="name" placeholder="Full Name" ng-model="user.name" required>
+					</label>
+
+	            
+                    <label class="">
+                   		<span style="color:red;" ng-show="signupForm.name.$dirty && signupForm.name.$invalid">
+                    		<span ng-show="signupForm.name.$error.required">Name is required.</span>  
+                    	</span>
+                     </label>
+	                
+	                
+                     
+	                <label class="item item-input-inset">
+						<i class="icon ion-android-mail placeholder-icon"></i>
+						<input type="email" name="email" placeholder="Email" ng-model="user.email" required>
+					</label>
+                     <label class="">
+                   		<span style="color:red;" ng-show="signupForm.email.$dirty && signupForm.email.$invalid">
+                    		<span ng-show="signupForm.email.$error.required">Email is required.</span> 
+                    		<span ng-show="signupForm.email.$error.email">Invalid email address.</span> 
+                    	</span>
+                     </label>
+                     <label class="item item-input-inset">
+						<i class="icon ion-android-mail placeholder-icon"></i>
+						<input type="number" name="phone" placeholder="Phone" ng-model="user.phone" required>
+					</label>
+                     <label class="">
+                   		<span style="color:red;" ng-show="signupForm.phone.$dirty && signupForm.phone.$invalid">
+                    		<span ng-show="signupForm.phone.$error.required">Phone is required.</span> 
+                    		<span ng-show="signupForm.phone.$error.number">Phone should be number.</span> 
+                    	</span>
+                     </label>
+                    <label class="item item-input-inset">
+						<i class="icon ion-key placeholder-icon"></i>
+						<input type="password" name="password" placeholder="Password" ng-model="user.password" required>
+					</label>
+                     <label class="">
+                   		<span style="color:red;" ng-show="signupForm.password.$dirty && signupForm.password.$invalid">
+                    		<span ng-show="signupForm.password.$error.required">Password is required.</span>  
+                    	</span>
+                     </label>
+                     <label class="item item-input-inset">
+						<i class="icon ion-map placeholder-icon"></i>
+						<input type="text" name="location" ng-model="data.location.formatted_address" placeholder="Location" googleplace id="chosenPlace" required>
+					
+                    <!-- <input type="text" placeholder="Change address" google-autocomplete-suggestion location="data.location"  on-selection="onAddressSelection(location)" ng-model="data.location.formatted_address" required>-->
+                     </label>
+					<label class="">
+                   		<span style="color:red;" ng-show="signupForm.location.$dirty && signupForm.location.$invalid">
+                    		<span ng-show="signupForm.location.$error.required">location is required.</span>  
+                    	</span>
+                     </label>
+	                <button class="button button button-full  btnblank" ng-disabled="signupForm.$invalid || isDisabled" style="background: #e55994; border: none; font-family: 'Exo 2', sans-serif; box-shadow: none; margin-top: 30px;" ng-click="signup(user,data.location)">Sign Up</button>
+	           		
+	               </form>
+	                <!-- <label class="item item-input-inset">
+						<i class="icon ion-android-person placeholder-icon"></i>
+						<input type="text" placeholder="Full Name" >
+					</label>
+					<label class="item item-input-inset">
+						<i class="icon ion-android-mail placeholder-icon"></i>
+						<input type="text" placeholder="Email">
+					</label>
+					<label class="item item-input-inset">
+						<i class="icon ion-key placeholder-icon"></i>
+						<input type="password" placeholder="Password">
+					</label>
+	                <label class="item item-input-inset">
+						<i class="icon ion-iphone placeholder-icon"></i>
+						<input type="text" placeholder="Phone">
+					</label>
+
+					<label class="item item-input-inset">
+						<i class="icon ion-map placeholder-icon"></i>
+						<input type="password" placeholder="Location">
+					</label>
+	                <button class="button button-block button-royal" style="background: #e55994; border: none; font-family: 'Exo 2', sans-serif; box-shadow: none; margin-top: 30px;">Sign Up</button> -->
+	                
+	                 <p style="font-size:16px;font-weight:300; text-align: center; margin: 15px auto; "><a style="font-family: 'Exo 2', sans-serif; width:100px; color:#858585; text-decoration:none;  border-bottom:2px solid #ff9ec7; padding: 0 0 5px;" href="#/login"> Login </a></p>
+                         <ion-google-place placeholder="Your address" ng-model="data.address" required name="address" location-changed="locationChanged"/>
+					
+	            </div>
+         </div>
+	</div>
+  </ion-content>
+</ion-view>
+<!--<style>
+   .ion-place-tools-autocomplete-dropdown{z-index: 999999 !important;}
+   </style>-->

@@ -1,0 +1,50 @@
+<ion-view view-title="Intro">
+
+
+
+  <ion-content class="has-header notification" ng-init="get_notification()" >	 
+  		
+  		<!--<div class="list">
+  			<div class="item">
+  				Receive Newsletter
+  			</div>
+			<div class="item">
+  				Receive push when somebody makes an offer
+  			</div>
+  			<div class="item">
+  				Receive push when somebody posts a product in your location
+  			</div>
+  		</div>-->
+  		
+  		<div class="list">
+                    <a href="#/request_list" style="text-decoration:none;">
+                    <div class="item item-avatar" ng-repeat="noti in notification" >
+	      <img src="{{noti.product_image}}">
+	      <h2>{{noti.product_name}}</h2>
+	      <p>{{noti.notification_for}}</p>
+	    </div>
+                        </a>
+                    <p style="text-align: center;" ng-if="!notification"> No notification available</p>
+<!--		<div class="item item-avatar" href="#">
+	      <img src="../img/h3.png">
+	      <h2>Venkman</h2>
+	      <p>Back off, man. I'm a scientist.</p>
+	    </div>
+	    <div class="item item-avatar" href="#">
+	      <img src="../img/h3.png">
+	      <h2>Venkman</h2>
+	      <p>Back off, man. I'm a scientist.</p>
+	    </div>-->
+
+	</div>
+  		
+  			
+  		
+</ion-view>
+
+
+
+
+<style>
+	
+</style>

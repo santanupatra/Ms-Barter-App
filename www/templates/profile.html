@@ -1,0 +1,131 @@
+<ion-view view-title="Intro" cache-view="false">
+
+<div class="row bar bar-header">
+        <div class="col col-20">
+            <button menu-toggle="left" ng-hide="$exposeAside.active" class="button button-icon button-clear ion-navicon"></button>
+        </div>
+        <div class="col col-60">
+             <div class="inner_logo">
+                PROFILE
+            </div>
+        </div>
+        <div class="col col-20">
+            <button class="button button-icon button-clear">
+            	<i class="ion-android-search"></i>
+            </button>
+        </div>
+    </div>
+  <ion-content class="has-header edit-profile"style="background: #eeeeee;" ng-init="myproduct_fav_list()" >
+
+	  <!--  <div class="item item-image edit-profile-banner">
+	   	<img src="../img/edit-profile-banner.jpg" alt="" />
+	   	<div class="edit-profile-banner-text">
+	   	<h4> Catherine Tresa </h4>
+	   	<p> <i class="ion-ios-location"></i> Californai C.A. United State </p>
+	   	</div>
+
+		<div class="plus-btn">
+			<button class="button button-small button-royal">
+				<i class="ion-ios-plus-empty"></i>
+			</button>
+		</div>
+
+		<div class="profile-pic">
+			<img src="../img/profile.jpg" alt="" />
+		</div>
+	   	
+	   	</div> -->
+<!--		<div class="item item-image edit-profile-banner" ng-init="userdetails()">
+	   	<img ng-if="!image_b" src="{{user.user_banner_image}}" alt="" style="height:171px;" />
+	   	<img ng-if="image_b" ng-src="{{pathForImage4(image_b)}}" style="height:171px;">
+	   	<div class="edit-profile-banner-text">
+	   	<h4> {{user.name}} </h4>
+	   	<p> <i class="ion-ios-location"></i> {{user.location}} </p>
+	   	</div>
+
+		<div class="plus-btn" ng-click="loadImage_b()">
+			<button class="button button-small button-royal">
+				<i class="ion-ios-plus-empty"></i>
+			</button>
+		</div>
+
+		<div class="profile-pic">
+			<div class="pro-area">
+					<img ng-if="!image_p" src="{{user.user_image}}" alt="" />
+					<img ng-if="image_p" ng-src="{{pathForImage3(image_p)}}">
+								
+			</div>
+			<div class="pic-edit-area" ng-click="loadImage_p()"> <i class="ion-ios-compose-outline" ></i> </div>
+			
+		</div>
+	   	
+	   	</div> -->
+<div class="item item-image edit-profile-banner" ng-init="userdetails_int()">
+    
+	   	<!--<img src="../img/edit-profile-banner.jpg" alt="" />-->
+	   	<div class="edit-profile-banner-text">
+	   	<h4> {{user_p.name}} </h4>
+	   	<p> <i class="ion-ios-location"></i> {{user_p.location}} </p>
+	   	</div>
+
+		<!--<div class="plus-btn">
+			<button class="button button-small button-royal">
+				<i class="ion-ios-plus-empty"></i>
+			</button>
+		</div>-->
+
+		<div class="profile-pic">
+			<div class="pro-area">
+				<img ng-if="!image_p" src="{{user_p.user_image}}" alt="" />
+					<img ng-if="image_p" ng-src="{{pathForImage3(image_p)}}">
+			</div>			
+		</div>
+	   	
+	   	</div>
+	     <div class="tabs-top tabs-background-positive tabs-color-light">
+		    <div class="tabs">
+		      <a class="tab-item active" href="javascript:void(0)" ng-hide="is_sold"> Past Deals </a>
+                      <a class="tab-item " href="javascript:void(0)" ng-click="is_solds()" ng-hide="!is_sold"> Past Deals </a>
+		      <a class="tab-item active" href="javascript:void(0)" ng-hide="is_fav"> Favourite </a>
+                      <a class="tab-item" href="javascript:void(0)" ng-click="is_favs()" ng-hide="!is_fav"> Favourite </a>
+		    </div>
+                 
+		  </div>
+  
+	  		<div ng-hide="is_fav" class="list tab-text-part" ng-if="my_fav_product">
+                            <a ng-repeat="fav in my_fav_product" class="item item-thumbnail-left" href="#/product_details/{{fav.product_id}}">
+			      <img src="{{fav.product_image}}" />
+                              <p>{{fav.product_name}}</p> <p><span class="price">${{fav.product_price}}</span> </p>
+			    </a>
+			    
+		</div>
+          <div ng-hide="is_fav" class="list tab-text-part" ng-if="!my_fav_product">
+              <p style="text-align:center;">No favourite product available</p>      
+			    
+		</div>
+<div ng-hide="is_sold" class="list tab-text-part" ng-if="my_sold_product">
+                            <a ng-repeat="fav in my_sold_product" class="item item-thumbnail-left" href="#/product_details/{{fav,product_id}}">
+			      <img src="{{fav.product_image}}" />
+                              <p>{{fav.product_name}}</p> <p><span class="price">${{fav.product_price}}</span> </p>
+			    </a>
+			    
+		</div>
+          <div ng-hide="is_sold" class="list tab-text-part" ng-if="!my_sold_product">
+              <p style="text-align:center;">No sold product available</p>
+			    
+		</div>
+  		
+
+	   
+	
+
+  </ion-content>
+  
+</ion-view>
+
+
+
+
+<style>
+	
+</style>

@@ -1,0 +1,179 @@
+<ion-view cache-view="false" class="gray_bg pane">
+
+
+
+  <ion-content>
+   <div class="item store_banner padding_top" >
+<ion-slide>
+                  <div class="back_detail" style="background: #e0e0e0!important; width: 100%; margin: 0 auto;" >
+   
+   					
+   
+				  <div class="list card profile">
+
+	<div class="form-style-2" ng-init="category_list()">
+				<div class="form-style-2-heading">{{'Publish_A_Listing'|translate}}</div>
+				<form name="signupForm"  class="" novalidate ng-cloak enctype="multipart/form-data">
+          <label for="field1"><span>{{'Title'| translate}} </span><input type="text" class="input-field" name="title" value="" ng-model="product.title" /></label>
+          
+         
+          <label class="">
+                   		<span style="color:red;" ng-show="signupForm.title.$dirty && signupForm.title.$invalid">
+                    		<span ng-show="signupForm.title.$error.required">Titel is required.</span>  
+                    	</span>
+                     </label>
+          
+          
+          <ionic-ratings ratingsobj="ratingsObject1" index="index"></ionic-ratings>
+          
+          
+          
+          
+          
+          		<label for="field5" "><span>{{'Category'|translate}}  </span>
+              
+            <select class="item-select" style="width: 100%;color: black;-moz-box-sizing: border-box;border: 1px solid #C2C2C2;-webkit-box-shadow: 1px 1px 4px #EBEBEB;-webkit-border-radius: 3px;padding: 6px;outline: none;" ng-model="cat_id" ng-change="find_sub_category(cat_id)"  name="cat">
+             
+              <option ng-repeat="cat in category" value="{{cat.id}}">{{cat.name}}</option>
+              
+            </select>
+          </label>
+          <label class="">
+                   		<span style="color:red;" ng-show="signupForm.cat.$dirty && signupForm.cat.$invalid">
+                    		<span ng-show="signupForm.cat.$error.required">{{'Category_is_required'|translate}}.</span>  
+                    	</span>
+                     </label>
+          <label for="field5" ng-if="product_sub_category"><span>{{'Sub_Category'|translate}}  </span>
+                
+            <select class="item-select" style="width: 100%;color: black;-moz-box-sizing: border-box;border: 1px solid #C2C2C2;-webkit-box-shadow: 1px 1px 4px #EBEBEB;-webkit-border-radius: 3px;padding: 6px;outline: none;" ng-model="product.sub_cat_id" name="sub_cat" ng-change="find_model(product.sub_cat_id)">
+             
+              <option ng-repeat="cat in product_sub_category" value="{{cat.id}}">{{cat.name}}</option>
+              
+            </select>
+            <label class="">
+                   		<span style="color:red;" ng-show="signupForm.sub_cat.$dirty && signupForm.sub_cat.$invalid">
+                    		<span ng-show="signupForm.sub_cat.$error.required">Sub categoty is required.</span>  
+                    	</span>
+                     </label>
+          </label>
+          <label for="field5" ng-if="product_model"><span>{{'Model'|translate}}  </span>
+                
+            <select class="item-select" style="width: 100%;color: black;-moz-box-sizing: border-box;border: 1px solid #C2C2C2;-webkit-box-shadow: 1px 1px 4px #EBEBEB;-webkit-border-radius: 3px;padding: 6px;outline: none;" ng-model="product.model"  name="model" ng-change="find_year(product.model)">
+             
+              <option ng-repeat="cat in product_model" value="{{cat.c_id}}">{{cat.c_name}}</option>
+              
+            </select>
+            <label class="">
+                   		<span style="color:red;" ng-show="signupForm.model.$dirty && signupForm.model.$invalid">
+                    		<span ng-show="signupForm.model.$error.required">Model is required.</span>  
+                    	</span>
+                     </label>
+          </label>
+         <label for="field5" ng-if="product_year"><span>{{'Year'|translate}}  </span>
+                
+            <select class="item-select" style="width: 100%;color: black;-moz-box-sizing: border-box;border: 1px solid #C2C2C2;-webkit-box-shadow: 1px 1px 4px #EBEBEB;-webkit-border-radius: 3px;padding: 6px;outline: none;" ng-model="product.year"  name="year">
+             
+              <option ng-repeat="cat in product_year" value="{{cat.c_id}}">{{cat.c_name}}</option>
+              
+            </select>
+            <label class="">
+                   		<span style="color:red;" ng-show="signupForm.sub_cat.$dirty && signupForm.sub_cat.$invalid">
+                    		<span ng-show="signupForm.sub_cat.$error.required">year is required.</span>  
+                    	</span>
+                     </label>
+          </label> 
+				<label for="field1" "><span style="width:100%;">{{'Price'|translate}}  </span>
+                <input style="width:45%; float:left;" type="text" class="input-field"  name="price" value="" ng-model="product.price"  />
+                 <label class="">
+                   		<span style="color:red;" ng-show="signupForm.price.$dirty && signupForm.price.$invalid">
+                    		<span ng-show="signupForm.price.$error.required">{{'Price_is_required'|translate}}.</span>  
+                    	</span>
+                     </label>
+                <select class="item-select" style="width: 45%;float:right;color: black;-moz-box-sizing: border-box;border: 1px solid #C2C2C2;-webkit-box-shadow: 1px 1px 4px #EBEBEB;-webkit-border-radius: 3px;padding: 6px;outline: none;" ng-model="product.currency"  name="cyrn">
+              
+              <option ng-repeat="list in currency" value="{{list.c_id}}">{{list.c_name}}</option>
+              
+            </select></label>
+				<label class="">
+                   		<span style="color:red;" ng-show="signupForm.cyrn.$dirty && signupForm.cyrn.$invalid">
+                    		<span ng-show="signupForm.cyrn.$error.required">{{'Currency'|translate}}.</span>  
+                    	</span>
+                     </label>
+				<label for="field2"><span>{{'Description'|translate}}  </span>
+        
+          <textarea class="textarea-field input-field" rows="3 " id="comment" ng-model="product.description"></textarea></label>
+          
+				
+				<!--<label for="field5" ng-init="country()" ><span>{{'Country'|translate}}  </span>
+
+            <select class="item-select" style="width: 100%;color: black;-moz-box-sizing: border-box;border: 1px solid #C2C2C2;-webkit-box-shadow: 1px 1px 4px #EBEBEB;-webkit-border-radius: 3px;padding: 6px;outline: none;" ng-model="pcountry" ng-change="region_c(pcountry)">
+              
+              <option ng-repeat="list in country" value="{{list.c_id}}">{{list.c_name}}</option>
+              
+            </select>
+          </label>-->
+				
+				
+				<label for="field2"><span>{{'City'|translate}}  </span>
+                 <select class="item-select" style="width: 100%;color: black;-moz-box-sizing: border-box;border: 1px solid #C2C2C2;-webkit-box-shadow: 1px 1px 4px #EBEBEB;-webkit-border-radius: 3px;padding: 6px;outline: none;" ng-model="product.state" >
+              <!--ng-change="city_r(product.state)"-->
+              <option ng-repeat="list in region" value="{{list.c_id}}">{{list.c_name}}</option>
+              
+            </select>
+
+          
+          <label for="field1"><span>{{'City_area'|translate}}  </span><input type="text" class="input-field" name="city_area" value="" ng-model="product.cityarea" /></label>
+          
+          <!-- <label for="field1"><span>{{'Address'|translate}}  </span><input type="text" class="input-field" id="address" readonly="" name="address" value="" ng-model="address" /></label>
+           <label for="field1" ng-click="own_address()" style="margin-top: 20px !important;margin-bottom: 31px;"><input style="width:8%; float:left" type="checkbox" class="input-field" name="status" value="1" ng-model="own_addres"  /><span style="width: 90%;
+float: left; margin-top:-10px;">{{'Use_my_current_location'|translate}}</span></label><br/> -->
+
+    </label> <!--      <label for="field1" style="width:100%;float:left;"></label></label>
+           <a  ng-click="uploaderOpen()">
+           <img class="edit_profile" src="img/edit.png" style="z-index:9999999;">
+           </a>-->
+            
+          <!--   <input style="width:85%; float:right; display:none;" type="file" class="sidbar_upload" multiple="multiple" ng-model="picFile" ngf-select accept="im/*" capture="camera" name="files[]" onchange="angular.element(this).scope().uploadFile(this.files)">-->
+
+<!--</label>--><br/>
+<!--<button class="button button-full button-positive" ng-click="getImageSaveContact()">
+                    Get Image and Save a Contact with It
+                </button>-->
+     <span ng-hide="addimage" class="button" ng-click="loadImage()" style="margin-bottom: 2px;margin-top: 2px;">{{'Upload_Image'|translate}}</span>  
+      <span ng-hide="addmoreimage" class="button" ng-click="loadImage()" style="margin-bottom: 2px;margin-top: 2px;">{{'Upload_Image_more'|translate}}</span>            
+              <!--<img ng-src="{{collection.selectedImage}}" style="width:100%; height: auto;"/>-->
+
+    <div>
+    <a href="javascript:void(0);" style="float:left; padding:3px;" ng-repeat="allimg in productImages"><img src="{{allimg}}"   style="height:30px; width:30px;" /></a>
+    </div>
+
+
+          <!--<label for="field2"><span>Phone  </span><input type="text" class="input-field" name="phone" value="" ng-model="product.phone" /></label>-->
+         
+         
+         
+           
+          <label for="field1" style="float: left;margin-top: 30px;"><input style="width:8%; float:left;margin-top: 30px;margin-bottom: 30px;" type="checkbox" class="input-field" name="status" value="1" ng-model="product.showemail" /><span style="width: 90%;
+float: left; margin-top:20px;margin-bottom: 30px;">{{'show_email'|translate}}</span></label><br/>
+      <!--<label for="field1"><input style="width:8%; float:left" type="checkbox" class="input-field" name="terms" value="1" ng-model="t_c"/></label>-->
+                    	
+                     
+          <button type="button" class="s_btn" style="margin-top:5px;" ion-button value="Submit"  ng-click="addproduct(product,address,cat_id,t_c)">{{'next'|translate}}</button>
+				</form>
+			</div>
+
+
+</div>
+			 
+				 </div> 
+            </ion-slide>
+            </div>
+            </ion-content>
+            
+            
+            <style>
+			select.item-select {float:left;}
+			.s_btn {float:left;}
+			</style>
+            
+</ion-view>

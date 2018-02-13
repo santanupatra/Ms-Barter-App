@@ -1,0 +1,102 @@
+<ion-view view-title="Intro">
+<div class="row bar bar-header">
+        <div class="col col-10">
+            <i style="font-size: 33px; color:#fff;" class="ion-android-arrow-back"></i>
+        </div>
+        <div class="col col-90">
+            
+			  <label class="item item-input" style="padding: 1px 5px;border-radius:5px;width: 100%;">
+			    
+			    <input type="text" placeholder="Search">
+			    <i style="padding-left: 0; padging-right:6px;" class="icon ion-search placeholder-icon"></i>
+			  </label>
+			
+
+        </div>
+        <div class="col col-20">
+            <button class="button button-icon button-clear ion-ios-search"></button>
+        </div>
+    </div>
+  <ion-content class="has-header has-footer  advance-search" style="background: #fff;" >
+	<div class="list search-area" ng-init="category_list();city_list()">
+	<form>	
+            <div class="row">
+		 <label class="item item-input col col-50">
+		    <input type="text" placeholder="Keyword Search" ng-model="search">
+		  </label>
+		 <label class="item col col-50">
+<!--		    <input type="text" placeholder="Product Location" ng-model="chosenPlace" googleplace id="chosenPlace">-->
+		  <select ng-model="chosenPlace">
+	      
+	      <option ng-repeat="cat in city" value="{{cat.name}}">{{cat.name}}</option>
+	    </select>
+                 </label>
+		</div>
+	 	
+	 	<div class="row">
+	 	<label class="item col col-50">
+		    <select ng-model="cat_id">
+	      
+	      <option ng-repeat="cat in category" value="{{cat.id}}">{{cat.name}}</option>
+	    </select>
+		  </label>
+		 <label class="item item-input col col-50">
+		    <select ng-model="style_id">
+	      
+	      <option ng-repeat="cat in style" value="{{cat.id}}">{{cat.name}}</option>
+	    </select>
+		  </label>
+		 
+		</div>
+
+
+
+		<h4 class="value" style=" margin-bottom: 0; padding-bottom: 0; margin-top: 10px; margin-left: 5px;">Value</h4>	  	  
+	  <div class="row">
+	  	<label class="item item-input col col-50">
+	    <input type="text" placeholder="Min Value" ng-model="min_value">
+	  </label>
+		<label class="item item-input col col-50">
+	    <input type="text" placeholder="Max Value" ng-model="max_value">
+	  </label>
+	  </div>
+	  
+	  <button class="button button-royal" ng-click="adv_product_search(cat_id,style_id,search,chosenPlace,min_value,max_value)">SEARCH</button>
+</form>
+	  
+</div>
+	
+	
+<!----listing start--------------------------------------------------------->
+   <div class="row">
+		<div class="product_card search_listings" style="width:100%">
+		
+                    <div class="item" ng-repeat="prd in ser_product" ng-click="go_product_details(prd.product_id)">
+		  		<div class="search_product_img">
+		  			<img ng-src="{{prd.product_image}}" alt="" style="height:60px;" />
+		  		</div>
+		  		<div class="search_details_body">
+		    		<h3>{{prd.product_name}}"</h3>
+		    		<p class="search_p_name">
+		    		<span class="name_span"> <i style="color: #31cf12;" class="ion-android-pin"></i> {{prd.product_location}}</span>
+<!--		    		<span class="arrow_span"><i class="ion-chevron-right"></i></span>-->
+		    		</p>
+		    	</div>
+		  	</div>
+
+            
+		  	
+		  	
+		  	
+		  	
+		  </div>	
+	</div>
+	
+
+  </ion-content>
+  <!--<div class="tabs tabs-icon-top footer-icon-bar">
+		<a class="tab-item" style="color: #888888;"><i class="icon ion-android-notifications"></i> Notification</a>
+		<a class="tab-item" style="color: #888888;"><i class="icon ion-heart"></i> Favourite</a>
+		<a class="tab-item" style="color: #888888;"><i class="icon ion-ios-cart"></i> Cart</a>
+	</div>-->
+</ion-view>

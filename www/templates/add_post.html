@@ -1,0 +1,185 @@
+<ion-view view-title="Intro">
+
+  <ion-content class="has-header post-ads"style="background: #eeeeee;" ng-init="category_list();city_list()">
+  			<!--<div class="list post-ads-list">
+  				<div class="item">
+  					<img src="../img/post-ads.png" />
+  				</div>
+  				
+  			</div>-->
+  			<div class="list">
+			  <label class="item item-input select-no-lt-pad">
+			    <!--<div class="input-label" style="color: #666;">
+			      Style
+			    </div>-->			    
+			    <select ng-model="data.style_id" name="style" required>
+			      <option>Select Style</option>
+			      <option ng-repeat="cat in style" value="{{cat.id}}">{{cat.name}}</option>
+			    </select>
+			  </label>
+			  <label class="">
+                   		<span style="color:red;" ng-show="productForm.style.$dirty && productForm.style.$invalid">
+                    		<span ng-show="productForm.style.$error.required">Style is required</span>  
+                    	</span>
+                     </label>
+			  <label class="item item-input select-no-lt-pad">
+			    <!--<div class="input-label" style="color: #666;">
+			      Category
+			    </div>-->
+			    <select ng-model="cat_id" ng-change="find_sub_category(cat_id)"  name="cat" required="">
+			      <option>SelectCategory</option>
+                                <option ng-repeat="cat in category" value="{{cat.id}}">{{cat.name}}</option>
+			    </select>
+			  </label>
+                            <label class="">
+                   		<span style="color:red;" ng-show="productForm.cat.$dirty && productForm.cat.$invalid">
+                    		<span ng-show="productForm.cat.$error.required">Category is required</span>  
+                    	</span>
+                     </label>
+			  <label class="item item-input select-no-lt-pad">
+			   <!-- <div class="input-label" style="color: #666;">
+			      Sub Category
+			    </div>-->
+			    <select ng-model="data.subcategory_id" name="scat" required="">
+			       <option>Select Category</option>
+			      <option ng-repeat="cat in product_sub_category" value="{{cat.id}}">{{cat.name}}</option>
+			    </select>
+			  </label>
+			  <label class="">
+                   		<span style="color:red;" ng-show="productForm.scat.$dirty && productForm.scat.$invalid">
+                    		<span ng-show="productForm.scat.$error.required">Sub Category is required</span>  
+                    	</span>
+                     </label>
+			  <label class="item item-input item-floating-label select-no-lt-pad">
+			    <span class="input-label">Name</span>
+			    <input type="text" placeholder="Name" ng-model="data.name" name="name" required>
+			  </label>
+		<label class="">
+                   		<span style="color:red;" ng-show="productForm.name.$dirty && productForm.name.$invalid">
+                    		<span ng-show="productForm.name.$error.required">name is required</span>  
+                    	</span>
+                     </label>
+			  <label class="item item-input"  style="border-bottom: none; padding-left: 0;">
+			  	<div class=" item-floating-label valu-left">
+			  		<span class="input-label">Value</span>
+			    	<input type="number" placeholder="Enter product value" style="padding-left: 15px;" ng-model="data.amount" name="amount" required="" style="padding-left: 0;">
+			  	</div>
+				<div class=" item-floating-label valu-right">
+			    	<select ng-model="data.currency" name="currency" required>
+			      
+			      <option ng-repeat="cat in currency" value="{{cat.iso}}">{{cat.iso}}</option>
+			    </select>
+			  	</div>			    
+			  </label>
+                            <label class="">
+                   		<span style="color:red;" ng-show="productForm.amount.$dirty && productForm.amount.$invalid">
+                    		<span ng-show="productForm.amount.$error.required">value is required</span>  
+                    	<span ng-show="productForm.amount.$error.number">Amount should be number.</span>
+                                </span>
+                     </label>
+                            <label class="">
+                   		<span style="color:red;" ng-show="productForm.currency.$dirty && productForm.currency.$invalid">
+                    		<span ng-show="productForm.currency.$error.required">Currency is required</span>  
+                    	</span>
+                     </label> 
+                            
+			  <label class="item item-input item-floating-label select-no-lt-pad">
+			    <span class="input-label">Quantity</span>
+			    <input type="number" placeholder="Enter Quantity" ng-model="data.quantity" name="quantity" required="">
+			  </label>
+			  <label class="">
+                   		<span style="color:red;" ng-show="productForm.quantity.$dirty && productForm.quantity.$invalid">
+                    		<span ng-show="productForm.quantity.$error.required">Quantiry is required</span> 
+                                <span ng-show="productForm.quantity.$error.number">Quantity should be number.</span>
+                    	</span>
+                     </label>
+			  <label class="item item-input item-floating-label textarea select-no-lt-pad">
+			    <span class="input-label">Description</span>
+			   <textarea placeholder="Enter Description" ng-model="data.description" name="description" required=""></textarea>
+			    
+			  </label>
+			  <label class="">
+                   		<span style="color:red;" ng-show="productForm.description.$dirty && productForm.description.$invalid">
+                    		<span ng-show="productForm.description.$error.required">Description is required</span>  
+                    	</span>
+                     </label>
+			 <label class="item item-input select-no-lt-pad">
+			    <!--<div class="input-label" style="color: #666;">
+			      Used/New
+			    </div>-->
+			   
+			     <select ng-model="data.type" name="type" required="">
+			      <option value="">Select Type</option>
+			      <option selected="" value="Used">Used</option>
+			      <option selected="" value="Used">New</option>
+			    </select>
+			  </label>
+			  <label class="">
+                   		<span style="color:red;" ng-show="productForm.type.$dirty && productForm.type.$invalid">
+                    		<span ng-show="productForm.type.$error.required">Type is required</span>  
+                    	</span>
+                     </label>
+			  <label class="item item-input item-floating-label">
+			    <h4 class="item-condition">Item Condition</h4>
+			   <input type="hidden" ng-model="item_condition" value=""> 
+                            <div class="round-area"></div>
+			  </label>
+			   <ionic-ratings ratingsobj="ratingsObject1" index="index" ng-model="data.item_conditions"></ionic-ratings>
+<!--			  <label class="item item-input item-floating-label select-no-lt-pad">
+			    <span class="input-label">Location</span>
+			    <input placeholder="Enter Product Location" type="text" ng-model="chosenPlace" googleplace id="chosenPlace" name="location" required="" >
+			  </label>-->
+                           <label class="item item-input select-no-lt-pad">
+			    <!--<div class="input-label" style="color: #666;">
+			      Style
+			    </div>-->			    
+			    <select ng-model="chosenPlace" name="style" required>
+			      <option>Select City</option>
+			      <option ng-repeat="cat in city" value="{{cat.name}}">{{cat.name}}</option>
+			    </select>
+			  </label>
+			  
+                           <label class="">
+                   		<span style="color:red;" ng-show="productForm.location.$dirty && productForm.location.$invalid">
+                    		<span ng-show="productForm.location.$error.required">Location is required</span>  
+                    	</span>
+                     </label>
+			  <h4 class="more-photo-text">More Photo</h4>
+			  <div class="item item-input" style="border-bottom: none;">
+					
+			    	<div class="more-pics" ng-click="loadImage_product()">
+			    		<button class="button button-light"> <i class="icon ion-android-add-circle"></i> </button>
+			    	</div>
+			    	<div class="more-pics" ng-click="loadImage_product()">
+			    		<button class="button button-light"> <i class="icon ion-android-add-circle"></i> </button>
+			    	</div>
+			    	<div class="more-pics" ng-click="loadImage_product()">
+			    		<button class="button button-light"> <i class="icon ion-android-add-circle"></i> </button>
+			    	</div>
+
+
+			  </div>
+			  
+			  <div class="item" style="background: transparent;">
+			  	<button class="button button-block button-royal" style="background: #e55994; border: none; font-family: 'Exo 2', sans-serif; box-shadow: none; margin-top: 0px;"  ng-click="product_add(data,cat_id,item_condition,chosenPlace)" ng-disabled="productForm.$invalid || isDisabled">Post</button>
+			  </div>
+			  
+
+			</div>	     
+	  		
+
+  		
+
+	   
+	
+
+  </ion-content>
+  
+</ion-view>
+
+
+
+
+<style>
+	
+</style>

@@ -1,0 +1,164 @@
+
+<ion-side-menus enable-menu-with-back-views="false">
+<ion-side-menu-content >
+
+<ion-view >
+
+ <div class="row bar bar-header" >
+        <div class="col col-20" ng-hide="hedttl">
+            <button ng-hide="hedttl" menu-toggle="left" style="display:block;" ng-class="serbar == '' ? 'button button-icon ion-navicon serbar' : 'button button-icon ion-navicon'"></button>
+           
+            
+        </div>
+        
+        <div class="col col-60" ng-hide="hedttl">
+             <div class="inner_logo" ng-hide="hedttl">
+                {{header_name}}
+            </div>
+            
+        </div>
+        <div class="col col-20" ng-hide="hedttl">
+
+            <!-- <button class="button button-icon button-clear" ng-click="go_product_search()">
+              <i class="ion-android-search"></i>
+            </button> -->
+            <button class="button kallol button-icon ion-ios-search-strong" ng-click="go_adv_search()" ng-hide="hedttl"></button>
+<!-- style="position: absolute;right: 5px;
+top: 5px;z-index: 99999;"-->
+        </div>
+      <div class="col col-100" ng-hide="serbar">
+      
+             <span class=" ion-arrow-left-a" style="cursor: pointer;padding: 8px 8px 8px 8px;" ng-click="serch_bar1()" ng-hide="serbar"></span>
+            <div ng-hide="serbar" style="width: 100%;">
+                <div ng-class="serbar == '' ? 'searchBar new_style_search' : 'searchBar animated zoomOut new_style_search'" style="position: relative;">
+               <form ng-submit= "go_product_search(search,'N')" class="hdr-search" style="width: 83%;">
+  
+       <input style="width:100% !important" type="search" placeholder="Search..." ng-model="search">
+    <!--/*-----------------------------------------post-ads------------------------------*/.post-ads{ width: auto; background: #fff; margin-top: 15px;}.post-ads-list{ margin: 0; border-radius:0; padding-top: 0;}.post-ads-list .item{ width: 100%; height: auto; margin: 0; padding: 0; overflow: hidden;}.post-ads .list{ padding-top: 5px; overflow: hidden;}.post-ads .list .item-input{ padding-left: 15px; border-bottom: 1px solid #b2b2b2; margin-bottom: 2px;}.post-ads .list .item-input:last-child{ border-bottom: none;}.item-floating-label .input-label.has-input{ color: #666;}.valu-left{float: left; width: 61%;}.valu-right{float: right; width: 30%;  margin: 35px 0 0 15px;}.valu-right label, input, button, select{ width: 100%; border: none;}.textarea{ padding-right: 15px !important; border-bottom: 1px solid #b2b2b2 !important;}.more-photo-text{ margin: 5% 0 1% 5%; font-size: 16px; font-weight: 600; margin: 5% 0 1% 5%;}.item-condition{ font-size: 16px !important; font-weight: 400 !important; color: #666;}.more-pics{ border: 1px solid #b2b2b2; width: 90px; height:76px; border-radius: 4px; float: left; background: #fff; margin: 0 5% 10% 0; overflow: hidden;}.more-pics img{ width: 100%; height: auto; margin: 0 auto;}.more-pics .button{ box-shadow: none; border: none;}.round-area{ width: auto;}-->
+   <!-- <button style="background: #9bb7df;width: 38%;float: left;padding: 2px 50px 0 0;height: 34px; border-radius: 0 5px 5px 0;line-height: 30px;" class="button button-small">
+      <input style="background: transparent; border:0; color:#fff;font-size: 12px;padding: 5px 4px;" type="submit" value="Search">
+    </button>-->
+  
+</form>
+            </div>
+            </div>
+
+        </div>  
+    </div>
+  
+   <ion-nav-view name="menuContent"></ion-nav-view>
+  
+   
+
+
+
+</ion-view>
+</ion-side-menu-content>
+
+<ion-side-menu  class="sidebar_bg" slide="left">
+<!--#detail_category/{{tab.c_id}}-->
+<ion-content >
+
+<div class="background_sidebar" >
+ <a menu-close   class="item item-icon-right" href="#/home" >
+        <span class="sidebar_span"><img src="img/profile.png" /></span>
+        <span class="sidebar_word">Home</span>
+        <span><i style="right: 5px;font-size: 21px;color: #fff;" class="icon ion-ios-arrow-right"></i></span>
+      </a>
+      <a menu-close ng-if="!sessionuserInfo.accessId" ng-click="goSignin1()" class="item item-icon-right" href="javascript:void(0);" >
+        <span class="sidebar_span"><img src="img/profile.png" /></span>
+        <span class="sidebar_word"> Login</span>
+        <span><i style="right: 5px;font-size: 21px;color: #fff;" class="icon ion-ios-arrow-right"></i></span>
+      </a>
+            <a menu-close ng-if="sessionuserInfo.accessId" class="item item-icon-right" href="#/public_profile">
+        <span class="sidebar_span"><img src="img/profile.png" /></span>
+        <span class="sidebar_word"> Profile </span>
+        <span><i style="right: 5px;font-size: 21px;color: #fff;" class="icon ion-ios-arrow-right"></i></span>
+        <!-- <img src="img/border.png" style="width: 100%;"/> -->
+      </a>
+
+      <a menu-close ng-if="sessionuserInfo.accessId" class="item item-icon-right" href="javascript:void(0)" ng-click="goedit()">
+        <span class="sidebar_span"><img src="img/edit_profile.png" /></span>
+        <span class="sidebar_word"> Edit Profile</span>
+        <span><i style="right: 5px;font-size: 21px;color: #fff;" class="icon ion-ios-arrow-right"></i></span>
+      </a>
+
+      <a menu-close ng-if="sessionuserInfo.accessId" class="item item-icon-right" href="#/notification">
+        <span class="sidebar_span"><img src="img/notification.png" /></span>
+        <span class="sidebar_word"> Notification</span>
+        <span><i style="right: 5px;font-size: 21px;color: #fff;" class="icon ion-ios-arrow-right"></i></span>
+      </a>
+       <!--<a menu-close ng-if="sessionuserInfo.accessId" class="item item-icon-right" href="#">
+        <span class="sidebar_span"><img src="img/watchlist.png" /></span>
+        <span class="sidebar_word"> Watch list</span>
+        <span><i style="right: 5px;font-size: 21px;color: #fff;" class="icon ion-ios-arrow-right"></i></span>
+      </a>-->
+
+      <a menu-close ng-if="sessionuserInfo.accessId" class="item item-icon-right" href="#/chat_list">
+        <span class="sidebar_span"><img src="img/message.png" /></span>
+        <span class="sidebar_word"> Message</span>
+        <span><i style="right: 5px;font-size: 21px;color: #fff;" class="icon ion-ios-arrow-right"></i></span>
+      </a>
+       <a menu-close ng-if="sessionuserInfo.accessId" class="item item-icon-right" href="#/add_product">
+        <span class="sidebar_span"><img src="img/message.png" /></span>
+        <span class="sidebar_word"> Add Product</span>
+        <span><i style="right: 5px;font-size: 21px;color: #fff;" class="icon ion-ios-arrow-right"></i></span>
+      </a>
+<a menu-close ng-if="sessionuserInfo.accessId" class="item item-icon-right" href="javascript:void(0);" ng-click="myproduct_list_url(sessionuserInfo.accessId)">
+        <span class="sidebar_span"><img src="img/message.png" /></span>
+        <span class="sidebar_word"> My Product</span>
+        <span><i style="right: 5px;font-size: 21px;color: #fff;" class="icon ion-ios-arrow-right"></i></span>
+      </a>
+       <a menu-close ng-if="sessionuserInfo.accessId" class="item item-icon-right" href="#/request_list">
+        <span class="sidebar_span"><img src="img/message.png" /></span>
+        <span class="sidebar_word"> My Request Product</span>
+        <span><i style="right: 5px;font-size: 21px;color: #fff;" class="icon ion-ios-arrow-right"></i></span>
+      </a>
+     <a menu-close class="item item-icon-right" href="#/category">
+        <span class="sidebar_span"><img src="img/category.png" /></span>
+        <span class="sidebar_word"> Category</span>
+        <span><i style="right: 5px;font-size: 21px;color: #fff;" class="icon ion-ios-arrow-right"></i></span>
+        
+      </a>
+      <!-- <a menu-close class="item item-icon-right" href="javascript;void(0)">
+        <span class="sidebar_span"><img src="img/category.png" /></span>
+        <span class="sidebar_word"> About Us</span>
+        <span><i style="right: 5px;font-size: 21px;color: #fff;" class="icon ion-ios-arrow-right"></i></span>
+        
+      </a>
+      <a menu-close class="item item-icon-right" href="javascript;void(0)">
+        <span class="sidebar_span"><img src="img/category.png" /></span>
+        <span class="sidebar_word"> FAQ</span>
+        <span><i style="right: 5px;font-size: 21px;color: #fff;" class="icon ion-ios-arrow-right"></i></span>
+        
+      </a> -->
+      <!--<a menu-close class="item item-icon-right" href="#">
+        <span class="sidebar_span"><img src="img/category.png" /></span>
+        <span class="sidebar_word"> Blog</span>
+        <span><i style="right: 5px;font-size: 21px;color: #fff;" class="icon ion-ios-arrow-right"></i></span>
+        
+      </a>-->
+      <a menu-close class="item item-icon-right" href="javascript:void(0);" ng-if="sessionuserInfo.accessId" ng-click="logout123()">
+        <span class="sidebar_span"><img src="img/category.png" /></span>
+        <span class="sidebar_word"> Logout</span>
+        <span><i style="right: 5px;font-size: 21px;color: #fff;" class="icon ion-ios-arrow-right"></i></span>
+        
+      </a>
+          </div>
+
+
+
+</ion-content>
+</ion-side-menu>
+
+<!-- <ion-side-menu side="right" ng-class="current_language == 'ar-sy' ? 'rtls' : ''">
+
+<ion-content>
+<ion-list>
+
+</ion-list>
+</ion-content>
+</ion-side-menu> -->
+
+
+</ion-side-menus>

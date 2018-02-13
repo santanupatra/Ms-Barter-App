@@ -1,0 +1,66 @@
+$scope.selectPictures = function(sourceType) {
+  var options = {
+    quality: 100,
+    destinationType: Camera.DestinationType.FILE_URI,
+    sourceType: sourceType,
+    saveToPhotoAlbum: false
+  };
+ 
+  $cordovaCamera.getPicture(options).then(function(imagePath) { 
+		plugins.crop.promise(imagePath,{quality: 100})
+.then(function success (imagePath) {
+alert('success');
+ var currentName = imagePath.replace(/^.*[\\\/]/, '');
+ //alert(imagePath);
+    //Create a new name for the photo
+    var d = new Date(),
+    n = d.getTime(),
+    newFileName =  n + ".jpg";
+ 
+    // If you are trying to load image from the gallery on Android we need special treatment!
+    if ($cordovaDevice.getPlatform() == 'Android' && sourceType === Camera.PictureSourceType.PHOTOLIBRARY) { 
+      window.FilePath.resolveNativePath(imagePath, function(entry) {
+        window.resolveLocalFileSystemURL(entry, success, fail);
+        function fail(e) {
+          console.error('Error: ', e);
+        }
+ 
+        function success(fileEntry) {
+          var namePath = fileEntry.nativeURL.substr(0, fileEntry.nativeURL.lastIndexOf('/') + 1);
+          // Only copy because of access rights
+          $cordovaFile.copyFile(namePath, fileEntry.name, cordova.file.dataDirectory, newFileName).then(function(success){
+            $scope.image_p = newFileName;
+			$scope.image_path = namePath + newFileName;
+			
+          }, function(error){
+            $scope.showAlert('Error', error.exception);
+          });
+        };
+      }
+    );
+    } else { 
+      var namePath = imagePath.substr(0, imagePath.lastIndexOf('/') + 1);
+	  //alert(newFileName);
+	  //alert(cordova.file.dataDirectory);
+      // Move the file to permanent storage
+      $cordovaFile.moveFile(namePath, currentName, cordova.file.dataDirectory, newFileName).then(function(success){
+        $scope.image_p = newFileName;  alert('enter');
+      }, function(error){
+        $scope.showAlert('Error', error.exception);
+      });
+    }
+  },
+  function(err){
+    // Not always an error, maybe cancel was pressed...
+  })
+//alert(newPath);
+
+//$scope.imagePath = $scope.newPath;
+})
+/*.catch(function fail (err) {
+alert('error');
+})*/
+//alert(newPath);
+    // Grab the file name of the photo in the temporary directory
+   
+};

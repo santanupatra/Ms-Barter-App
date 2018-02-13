@@ -1,0 +1,175 @@
+<ion-view view-title="Intro" ng-init="product_details()">
+
+<div class="bar bar-subheader blue-floral">
+  <h2 class="title">{{products.product_name}} <span>
+  	<i class="ion-android-share-alt left" ng-click="fb(products.product_url)"></i>
+  	<i ng-if="products.is_favourite" class="ion-android-favorite right" ng-click="remove_favourite(products.product_id)"></i>
+        <i ng-if="!products.is_favourite" class="ion-android-favorite-outline right" ng-click="add_favourite(products.product_id)"></i>
+        
+        
+  </span> </h2>
+</div>
+  <ion-content class="has-header has-footer product-detail" >	 
+  			
+  			<div class="list no-padding-top no-padding-bottom">
+  				<ion-slide-box on-slide-changed="slideHasChanged($index)">
+  					<ion-slide >
+  						<div class="item" style="padding: 0;">
+		  					<img ng-src="{{products.product_image}}" />
+		  				</div>
+  					</ion-slide>
+					<ion-slide >
+  						<div class="item" style="padding: 0;">
+		  					<img ng-src="{{products.product_image1}}" />
+		  				</div>
+  					</ion-slide>
+  					<ion-slide >
+  						<div class="item" style="padding: 0;">
+		  					<img ng-src="{{products.product_image2}}" />
+		  				</div>
+  					</ion-slide>
+  				</ion-slide-box>
+  			</div>
+  		    <div class="list card" style="background: #fff; margin-top: 0;">  		    
+  		    	<div class="item">
+                            
+  		    		<p><i class="icon ion-android-time"></i> {{products.added_date}} ,<span class="arilaku">{{products.product_location}}</span> </p>
+  		    		<p><i class="icon ion-android-favorite-outline"></i> <span class="arilaku">{{products.fav_count}} Favourite</span> </p>
+  		    		<!--<p><i class="icon ion-ios-list-outline"></i> in <span class="arilaku">Top</span> </p>-->
+  		    	</div>
+  		    	<div class="item">
+  		    		<p><i class="ion-ios-pricetag-outline"></i> {{products.product_price}} </p>
+  		    		<p>{{products.category_name}} </p>
+  		    	</div>
+				<div class="item">
+<!--                                    <ionic-ratings ratingsobj="ratingsObject1" index="index" ng-model="product.item_conditions"></ionic-ratings>-->
+<!--						<div class="brand-area">
+							<h3> <i class="icon ion-social-buffer"></i> Brand</h3>
+							<p class="biba">Biba</p>
+						</div>
+						<div class="brand-area">
+							<h3> <i class="icon ion-android-radio-button-on"></i> Model</h3>
+							<p class="biba">yu1111</p>
+						</div>
+						<div class="brand-area">
+							<h3> <i class="icon ion-calendar"></i> Year</h3>
+							<p class="biba">2017</p>
+						</div>-->
+				</div>
+				<div class="item item-avatar" href="#">
+		          <img src="{{products.user_image}}">
+		          <h2>{{products.user_name}}</h2>
+		          <p>{{products.user_location}}</p>
+		        </div>
+		        <div class="item" >
+                            
+		        	<p> <i class="icon ion-ios-information-outline"></i>{{products.product_description}} </p>
+		        </div>
+				<!--<div class="item">
+				<h3 class="fastrack">Fastrack Wrap  Sunglasses</h3>
+					<img src="../img/specical.jpg">
+				</div>-->
+				<div class="item" ng-if="products.user_id != sessionuserInfo.accessId">
+					<button ng-if="!products.is_request" class="button button-block button-light" ng-click="product_request_rq(products.product_id,products.user_id)">Invite</button>
+                                        <button ng-if="products.is_request" class="button button-block button-light" > Already Requested</button>
+				<button class="button button-block button-light" ng-click="getchat(products.product_id,products.user_id)">Chat</button>
+                                </div>
+				
+				<!--<div class="item">
+					<p class="share-text">Share using</p>
+					<div class="share-social">
+						<div class="fb">
+							<img src="../img/fb.png" />
+						</div>
+						<div class="fb">
+							<img src="../img/twitr.png" />
+						</div>
+						<div class="fb">
+							<img src="../img/we-chat.png" />
+						</div>
+					</div>
+				</div>-->
+				
+  		    </div>
+
+<!--popup start-->
+<!--           <div>
+               <form name="frmmsg"  style="margin-top: 5%;" class="ng-pristine ng-invalid ng-invalid-required">
+        <div class="form-group">
+        	<div class="row">
+            	<div class="col col-80">
+                	<label class="item item-input">  
+                        <textarea placeholder="Type Message" required="" ng-model="msg4" id="msgs" rows="3" class="ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required" style=""></textarea>
+                         
+                    </label>         
+                    <input type="text" ng-model="last_id" id="last_id" class="ng-pristine ng-untouched ng-valid ng-not-empty" style="">
+                </div>
+                <div class="col col-20">
+                	<button class="button button-small button-calm btnn_chat" style="" ng-disabled="isDisabledchat" ng-click="addmessage(msg4,products,last_id)" >Send</button>
+                </div>
+            </div>
+        </div>
+        </form>
+               </div>-->
+<div class="filter-area" ng-show="showdiv">
+    
+			<div class="list card people-name-area" >				
+
+				    <div class="item item-avatar" href="#">
+				      <img src="{{details_product.part_product_image}}">
+				      <h2>{{details_product.product_n}}</h2>
+				      <i class="icon ion-android-close" ng-click="close_chat()"></i>
+				    </div>
+
+				<div class="chat_area_only" id="sw_msg">
+                                    <div ng-repeat="chts in chat_result">
+					<div ng-if="chts.status == 2" class="item item-avatar btm-brdr chat-lt-padding" href="#">
+				      <img class="img-chat" ng-src="{{chts.user_image}}">
+				      <div class="chat"> <div class="chat-arw"></div> <p>{{chts.msg}}</p>  </div>
+				    </div>
+					
+					<div ng-if="chts.status == 1" class="item item-avatar btm-brdr chat-lt-padding-0" href="#">				      
+				      <div class="chat-rt"> <p>{{chts.msg}}</p> <div class="chat-arw-rt"></div> </div>
+				      <img class="img-chat" ng-src="{{chts.user_image}}" style="float: right;margin-top: -39px;">
+				    </div>
+                                        </div>
+				</div>
+			
+				<div class="chat-type-part">
+                                    
+					<div class="item  row">
+					<div class="col col-80"><textarea placeholder="Type Message" required="" ng-model="msg4" id="msgs1" rows="3"  style=""></textarea></div>
+					<div class="col col-20">
+                	<button class="button button-small button-calm btnn_chat chat-send" style="" ng-disabled="isDisabledchat" ng-click="addmessage(msg4,products,last_id)" >Send</button>
+                </div>
+   
+  
+  </div>
+				</div>
+			</div>
+		</div>
+           <!--pop end--> 
+
+  </ion-content>
+<!--  <div class="tabs row footer-icon-bar" style="margin: 0; padding:0;">
+		<div class="make-offer"> <img src="../img/hand-shake.png" /> <p>Make & Offer</p> </div>
+		<div class="chat"> <img src="../img/chat.png" /> <p>Chat</p></div>
+		
+	</div>-->
+	 
+</ion-view>
+
+
+
+
+<style>
+	
+</style>
+<script>
+    $(document).ready(function(){
+    $("button").click(function(){ 
+        $("#msgs1").val('');
+    });
+    
+});
+    </script>

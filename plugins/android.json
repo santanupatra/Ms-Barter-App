@@ -1,0 +1,89 @@
+{
+  "prepare_queue": {
+    "installed": [],
+    "uninstalled": []
+  },
+  "config_munge": {
+    "files": {}
+  },
+  "installed_plugins": {
+    "call-number": {
+      "PACKAGE_NAME": "com.ionicframework.classifieds"
+    },
+    "com-badrit-base64": {
+      "PACKAGE_NAME": "com.ionicframework.classifieds"
+    },
+    "com-sarriaroman-photoviewer": {
+      "PACKAGE_NAME": "com.ionicframework.classifieds"
+    },
+    "com.phonegap.plugins.PushPlugin": {
+      "PACKAGE_NAME": "com.ionicframework.classifieds"
+    },
+    "cordova-plugin-actionsheet": {
+      "PACKAGE_NAME": "com.ionicframework.classifieds"
+    },
+    "cordova-plugin-camera": {
+      "PACKAGE_NAME": "com.ionicframework.classifieds"
+    },
+    "cordova-plugin-console": {
+      "PACKAGE_NAME": "com.ionicframework.classifieds"
+    },
+    "cordova-plugin-crop": {
+      "PACKAGE_NAME": "com.ionicframework.classifieds"
+    },
+    "cordova-plugin-device": {
+      "PACKAGE_NAME": "com.ionicframework.classifieds"
+    },
+    "cordova-plugin-file-transfer": {
+      "PACKAGE_NAME": "com.ionicframework.classifieds"
+    },
+    "cordova-plugin-filepath": {
+      "PACKAGE_NAME": "com.ionicframework.classifieds"
+    },
+    "cordova-plugin-geolocation": {
+      "PACKAGE_NAME": "com.ionicframework.classifieds"
+    },
+    "cordova-plugin-globalization": {
+      "PACKAGE_NAME": "com.ionicframework.classifieds"
+    },
+    "cordova-plugin-image-picker": {
+      "PACKAGE_NAME": "com.ionicframework.classifieds"
+    },
+    "cordova-plugin-splashscreen": {
+      "PACKAGE_NAME": "com.ionicframework.classifieds"
+    },
+    "cordova-plugin-statusbar": {
+      "PACKAGE_NAME": "com.ionicframework.classifieds"
+    },
+    "cordova-plugin-whitelist": {
+      "PACKAGE_NAME": "com.ionicframework.classifieds"
+    },
+    "cordova-plugin-x-socialsharing": {
+      "PACKAGE_NAME": "com.ionicframework.classifieds"
+    },
+    "ionic-plugin-keyboard": {
+      "PACKAGE_NAME": "com.ionicframework.classifieds"
+    },
+    "phonegap-plugin-push": {
+      "SENDER_ID": "953848896225",
+      "PACKAGE_NAME": "com.ionicframework.classifieds"
+    },
+    "cordova-plugin-facebook4": {
+      "APP_ID": "802734563207988",
+      "APP_NAME": "Ms-Butter",
+      "PACKAGE_NAME": "com.ionicframework.msbatter"
+    },
+    "twitter-connect-plugin": {
+      "FABRIC_KEY": "30c29c81292d1f0e32d265911586f936957dad15",
+      "PACKAGE_NAME": "com.ionicframework.msbatter"
+    }
+  },
+  "dependent_plugins": {
+    "cordova-plugin-compat": {
+      "PACKAGE_NAME": "com.ionicframework.classifieds"
+    },
+    "cordova-plugin-file": {
+      "PACKAGE_NAME": "com.ionicframework.classifieds"
+    }
+  }
+}
