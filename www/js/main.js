@@ -181,7 +181,7 @@ app.run(['$rootScope', '$state', '$stateParams',
 		//$rootScope.serviceurl = "http://104.131.83.218/team6/classified/webservice/";
 		//team6/classified
    // $rootScope.serviceurl = "http://104.131.83.218/team6/shoping/";
-$rootScope.serviceurl = "http://msbarter.sg/";
+$rootScope.serviceurl = "http://msbarter.sg/demo/";
     }]);
 
 app.directive('googleplace', function() {

@@ -15,6 +15,7 @@ $scope.productImages_path  = [];
       $scope.style_id='';
       $scope.search='';
       $scope.chosenPlace='';
+      $scope.username='';
       $scope.min_value='';
       $scope.max_value='';
  $scope.productImages = [];
@@ -91,6 +92,7 @@ console.log(ZoomFactor);
 
 
 $scope.getchatlist = function(){
+  $scope.no_chat_list = '';
    //alert(product_id);
    //alert(seller_id);
    user_id = $scope.sessionuserInfo.accessId; 
@@ -110,7 +112,16 @@ AuthService.get_chat_list(user_id).then(function(result) { //console.log(result)
      
     
     $scope.header_name = 'Home';
-    $scope.chat_list = result.chat_list;
+    if(result.chat_list)
+    {
+      $scope.chat_list = result.chat_list;
+      $scope.no_chat_list = '';
+    }
+    else
+    {
+      $scope.no_chat_list = 'No chat message available';
+    }
+    
      // $scope.user_c = result.user_details;
 //      $scope.chat_result = result.chat;
 //     $scope.details_product = result.product;
@@ -134,9 +145,16 @@ $scope.getchat = function(product_id,seller_id){
    
 if(!user_id)
 {
+  if($window.localStorage["userInfo"])
+  {
   $sds = JSON.parse($window.localStorage["userInfo"]);
 //console.log($sds.accessId);
   user_id = $sds.accessId;
+}
+else
+{
+  user_id = '';
+}
 } 
 
 //alert(user_id);
@@ -145,6 +163,8 @@ $scope.seller_id = seller_id;
 
 //alert($scope.seller_id);
 //alert($scope.product_id);
+ if(user_id)
+  {
 AuthService.get_chat(product_id,user_id,seller_id).then(function(result) { //console.log(result);alert();
      
     
@@ -160,16 +180,29 @@ AuthService.get_chat(product_id,user_id,seller_id).then(function(result) { //con
 //        template: $translate.instant('No details found')
 //      });
     }) 
+
+}
+  else
+  {
+  var alertPopup = $ionicPopup.alert({
+        title: 'Login',
+        template: 'Please Login First'
+      }); 
+  }
+
+
+
+
 };
 $scope.close_chat = function(){ 
     $state.reload();
     $scope.showdiv = 0;
 };
-$scope.chat_open = function(){ alert();
+$scope.chat_open = function(){ 
     $scope.showme=true;
 };
   //POP UP comment
- $scope.go_chat = function(product_id) { alert(product_id);
+ $scope.go_chat = function(product_id) {
    $scope.data = {}
    //console.log($scope.sessionuserInfo);alert(data.i_name);
    $scope.data.user_name = $scope.sessionuserInfo.name ;
@@ -483,19 +516,19 @@ $scope.goedit = function(){
 
 
 $scope.update_profile = function(user){
-
+console.log(user)
 AuthService.update_profile(user).then(function(result) { console.log(result);
       $scope.header_name = 'Home';
       $scope.user = user;
       //console.log($scope.user);
       var alertPopup = $ionicPopup.alert({
-        title: 'True',
+        title: 'Success',
         template: 'Profile updated successfully'
       });
     }, function(err) { console.log(err);
       var alertPopup = $ionicPopup.alert({
         title: 'False',
-        template: 'profile not up'
+        template: 'profile not updated'
       });
     });
 
@@ -521,6 +554,18 @@ AuthService.user_profile(user_id).then(function(result) { //console.log(result);
         template: $translate.instant('No user found')
       });
     });
+AuthService.category_list().then(function(result) { console.log(result);
+      $scope.header_name = 'Home';
+      $scope.category = result.category;
+      $scope.style = result.style;
+      $scope.currency = result.currency;
+      //console.log( $scope.currency);
+    }, function(err) { console.log(err);
+      var alertPopup = $ionicPopup.alert({
+        title: $translate.instant('False'),
+        template: $translate.instant('No category found')
+      });
+    });
  };
 ////
 
@@ -537,7 +582,7 @@ AuthService.update_profile(user).then(function(result) { console.log(result);
       //console.log($scope.user);
       var alertPopup = $ionicPopup.alert({
         title: 'True',
-        template: 'Profile updated successfully'
+        template: 'Product updated successfully'
       });
     }, function(err) { console.log(err);
       var alertPopup = $ionicPopup.alert({
@@ -613,6 +658,7 @@ AuthService.category_list().then(function(result) { //console.log(result);
       $scope.header_name = 'Home';
       $scope.category = result.category;
       $scope.style = result.style;
+      $scope.type = result.type;
       $scope.currency = result.currency;
       //console.log( $scope.currency);
     }, function(err) { console.log(err);
@@ -839,7 +885,7 @@ $scope.selectPictures = function(sourceType) {
       $cordovaFileTransfer.upload(url, targetPath, options).then(function(result) { //console.log(result); alert(result);
          var alertPopup = $ionicPopup.alert({
              title: 'Success',
-             template: 'Profile Image Change Success Fully'
+             template: 'Profile Image changed successfully'
       });
        });
       //
@@ -878,7 +924,7 @@ $scope.selectPictures = function(sourceType) {
       $cordovaFileTransfer.upload(url, targetPath, options).then(function(result) { //console.log(result); alert(result);
          var alertPopup = $ionicPopup.alert({
              title: 'Success',
-             template: 'Profile Image Change Success Fully'
+             template: 'Profile Image changed successfully'
       });
        });
       
@@ -912,7 +958,7 @@ $scope.pathForImage3 = function(image) {
  
  $scope.loadImage_b = function() { 
   var options = {
-    title: 'select_image',
+    title: 'Select Image',
     buttonLabels: ['Load from library', 'camera'],
     addCancelButtonWithLabel: 'Cancel',
     androidEnableCancelButton : true,
@@ -1097,7 +1143,16 @@ $scope.myproduct_list = function(){
   //user_id = $scope.sessionuserInfo.accessId;
  AuthService.my_product_list(user_id).then(function(result) { //console.log(result);alert();
       $scope.header_name = 'My Product';
-      $scope.my_product = result.product;
+      if(result.product)
+      {
+        $scope.my_product = result.product;
+        $scope.no_my_product='';
+      }
+      else
+      {
+        $scope.no_my_product='No product added';
+      }
+      
       //$state.go('menu.my_product');
     }, function(err) {
       var alertPopup = $ionicPopup.alert({
@@ -1231,8 +1286,10 @@ $scope.abcc = function()
 {
   alert('dfgdfg');
 }
+$scope.hello = function(){
+  alert('here')
+}
 $scope.category_list1 = function(){
-    
     
     
   user_id = $scope.sessionuserInfo.accessId;
@@ -1258,7 +1315,16 @@ $scope.subcategory_list1 = function(){
   user_id = $scope.sessionuserInfo.accessId;
  AuthService.subcategory_list1(id).then(function(result) { //console.log(result);alert();
       $scope.header_name = 'category';
-      $scope.subcategory = result.category;
+      if(result.category)
+      {
+$scope.subcategory = result.category;
+$scope.no_subcategory = '';
+      }
+      else
+      {
+        $scope.no_subcategory = 'No subcategory available';
+      }
+      
       //$scope.style = result.style;
       //$scope.currency = result.currency;
       //$state.go('menu.my_product');
@@ -1287,7 +1353,7 @@ $scope.style_list = function(){
 };
 
 
-$scope.city_list = function(){
+$scope.city_list = function(){ 
     
   
  AuthService.city_list().then(function(result) { //console.log(result);alert();
@@ -1310,7 +1376,7 @@ $scope.product_add = function(data,cat_id,item_condition,chosenPlace){
     data.user_id = user_id;
     data.category_id = cat_id;
     data.item_condition  =item_condition;
-     
+     data.currency = 'SGD';
  AuthService.add_product(data).then(function(result) { //console.log(result);alert();
       $scope.productImages = [];
      $scope.header_name = 'Add Product';
@@ -1339,9 +1405,9 @@ $scope.product_edit = function(data,cat_id,item_condition,chosenPlace){
     data.user_id = user_id;
     data.category_id = cat_id;
     data.item_condition  =item_condition;
-    data.image = $scope.product_image;
-    data.image2 = $scope.product_image2;
-    data.image3 = $scope.product_image3;
+    data.image = $scope.product_image_n;
+    data.image2 = $scope.product_image2_n;
+    data.image3 = $scope.product_image3_n;
  AuthService.edit_product(data).then(function(result) { //console.log(result);alert();
       $scope.productImages = [];
      //$scope.header_name = 'Edit Product';
@@ -1379,13 +1445,27 @@ $scope.go_product_search = function(id,type){
 
 
 $scope.product_search = function(){ 
+  $ionicLoading.show({
+      template: 'Loading....'
+    });
  var id = $stateParams.id;   
   var type = $stateParams.type;  
  AuthService.product_search(id,type).then(function(result) { //console.log(result);alert();
       $scope.header_name = 'Product Search';
-      $scope.ser_product = result.product;
+
+      if(result.product)
+      {
+         $scope.ser_product = result.product;
+         $scope.no_ser_product ='';
+      }
+      else
+      {
+        $scope.no_ser_product ='No product available';
+      }
+      $ionicLoading.hide();
       //$state.go('menu.search');
     }, function(err) {
+       $ionicLoading.hide();
       var alertPopup = $ionicPopup.alert({
         title: 'False',
         template: 'No product found'
@@ -1395,9 +1475,9 @@ $scope.product_search = function(){
 
 
 
-$scope.adv_product_search = function(cat_id,style_id,search,chosenPlace,min_value,max_value){ 
+$scope.adv_product_search = function(cat_id,style_id,search,chosenPlace,min_value,max_value,username){ 
   
- AuthService.adv_product_search(cat_id,style_id,search,chosenPlace,min_value,max_value).then(function(result) { //console.log(result);alert();
+ AuthService.adv_product_search(cat_id,style_id,search,chosenPlace,min_value,max_value,username).then(function(result) { //console.log(result);alert();
       $scope.header_name = 'Product Search';
       $scope.ser_product = result.product;
       //$state.go('menu.search');
@@ -1445,12 +1525,34 @@ $scope.product_details = function(){
 };
 
 
+$scope.cms_terms = function(id){ 
+ var id = $stateParams.id;   
+   
+ AuthService.cms(id).then(function(result) { //console.log(result);alert();
+    $scope.val = result;
+     var alertPopup = $ionicPopup.alert({
+        title: $scope.val.page_title,
+        template: $scope.val.page_description
+      });
+      //$state.go('menu.search');
+    }, function(err) {
+      var alertPopup = $ionicPopup.alert({
+        title: 'False',
+        template: 'No CMS found'
+      });
+    });
+};
+
+
+
+
 
 // IMAGE UPLOAD product
  
- $scope.loadImage_product = function() { 
+ $scope.loadImage_product = function(id) { 
+
   var options = {
-    title: 'select_image',
+    title: 'Select Image',
     buttonLabels: ['Load from library', 'camera'],
     addCancelButtonWithLabel: 'Cancel',
     androidEnableCancelButton : true,
@@ -1463,11 +1565,11 @@ $scope.product_details = function(){
       type = Camera.PictureSourceType.CAMERA;
     }
     if (type !== null) {
-      $scope.selectPictures_product(type);
+      $scope.selectPictures_product(type,id);
     }
   });
 };
-$scope.selectPictures_product = function(sourceType) { 
+$scope.selectPictures_product = function(sourceType,id) { 
   var options = {
     quality: 100,
     destinationType: Camera.DestinationType.FILE_URI,
@@ -1525,10 +1627,30 @@ $scope.selectPictures_product = function(sourceType) {
      $ionicLoading.show({
       template: 'Loading....'
     });
-      $cordovaFileTransfer.upload(url, targetPath, options).then(function(result) { //console.log(result); alert(result);
-        
+      $cordovaFileTransfer.upload(url, targetPath, options).then(function(result) { //console.log(result); 
+       
+        $scope.ret_img = JSON.parse(result.response);
+       // alert($scope.ret_img.name);
         $ionicLoading.hide();  
-          var allimg= result.response;
+
+        if(id == 1)
+    {
+      $scope.product_image8 = $scope.ret_img.link;  
+      alert($scope.product_image8)
+    }
+    else if(id == 2)
+    {
+      $scope.product_image9 = $scope.ret_img.link; 
+     
+    }
+    else if(id == 3)
+    {
+        $scope.product_image10 = $scope.ret_img.link;
+       
+    }
+
+
+          var allimg= $scope.ret_img.name;
     $scope.productImages.push(allimg);
        });
       //
@@ -1562,8 +1684,23 @@ $scope.selectPictures_product = function(sourceType) {
       };
      
       $cordovaFileTransfer.upload(url, targetPath, options).then(function(result) { //console.log(result); alert(result);
-
-var allimg= result.response;
+        $scope.ret_img = JSON.parse(result.response);
+        if(id == 1)
+    {
+      $scope.product_image8 = $scope.ret_img.link;  
+      
+    }
+    else if(id == 2)
+    {
+      $scope.product_image9 = $scope.ret_img.link; 
+     
+    }
+    else if(id == 3)
+    {
+        $scope.product_image10 = $scope.ret_img.link;
+       
+    }
+var allimg= $scope.ret_img.name;
     $scope.productImages.push(allimg);
        });
       
@@ -1584,7 +1721,7 @@ var allimg= result.response;
  $scope.loadImage_product_edit = function(id) { 
      
   var options = {
-    title: 'select_image',
+    title: 'Select Image',
     buttonLabels: ['Load from library', 'camera'],
     addCancelButtonWithLabel: 'Cancel',
     androidEnableCancelButton : true,
@@ -1657,20 +1794,25 @@ $scope.selectPictures_product_edit = function(sourceType,id) {
       $cordovaFileTransfer.upload(url, targetPath, options).then(function(result) { //console.log(result); alert(result);
         //var allimg= result.response;
     //$scope.productImages.push(allimg);
+    //alert(JSON.stringify(result))
     $ionicLoading.hide(); 
+    $scope.ret_img = JSON.parse(result.response);
     if(id == 1)
     {
-      $scope.product_image = result.response;  
+      $scope.product_image =  $scope.ret_img.link;
+      $scope.product_image_n =  $scope.ret_img.name;  
       //alert( $scope.product_image);
     }
     else if(id == 2)
     {
-      $scope.product_image2 = result.response; 
+      $scope.product_image2 =  $scope.ret_img.link; 
+      $scope.product_image2_n =  $scope.ret_img.name;
       //alert( $scope.product_image2);
     }
     else if(id == 3)
     {
-        $scope.product_image3 = result.response;
+        $scope.product_image3 =  $scope.ret_img.link;
+        $scope.product_image3_n =  $scope.ret_img.name;
         //alert( $scope.product_image3);
     }
     
@@ -1709,19 +1851,23 @@ $scope.selectPictures_product_edit = function(sourceType,id) {
     });
       $cordovaFileTransfer.upload(url, targetPath, options).then(function(result) { //console.log(result); alert(result);
 $ionicLoading.hide();
+$scope.ret_img = JSON.parse(result.response);
 if(id == 1)
     {
-      $scope.product_image = result.response;  
+      $scope.product_image = $scope.ret_img.link;  
+      $scope.product_image_n = $scope.ret_img.name;
       
     }
     else if(id == 2)
     {
-      $scope.product_image2 = result.response; 
+      $scope.product_image2 = $scope.ret_img.link; 
+      $scope.product_image2_n = $scope.ret_img.name; 
      
     }
     else if(id == 3)
     {
-        $scope.product_image3 = result.response;
+        $scope.product_image3 = $scope.ret_img.link;
+        $scope.product_image3_n = $scope.ret_img.name;
        
     }
 
@@ -1788,6 +1934,11 @@ $scope.addmessage = function(msg,product){
         });
 	   };
   
+
+
+
+
+
    $scope.addmessage_rq = function(msg,product,seller){ 
     //console.log('ftghfg');
     document.body.classList.add('keyboard-open');

@@ -103,6 +103,7 @@ angular.module('starter')
       template: 'Loading....'
     });    
    var encodedString = 'name=' + encodeURIComponent(data.name) +
+            '&username=' + encodeURIComponent(data.username) +
 						'&mobile_no=' + encodeURIComponent(data.phone) +  
 						'&email=' + encodeURIComponent(data.email) +
 						'&password=' + encodeURIComponent(data.password) +
@@ -692,7 +693,8 @@ var update_profile = function(data){
             '&mobile_no=' + encodeURIComponent(data.mobile_no) +  
             '&email=' + encodeURIComponent(data.email) +
             '&location=' + encodeURIComponent(data.location) +
-            '&id=' + encodeURIComponent(data.id) ;
+            '&id=' + encodeURIComponent(data.id) +
+            '&style_id=' + encodeURIComponent(data.style_id);
              
   var req = {
             method: 'POST',
@@ -741,14 +743,15 @@ var product_search = function(id,type){
         });
 };
 
-var adv_product_search = function(cat_id,style_id,search,chosenPlace,min_value,max_value){ 
+var adv_product_search = function(cat_id,style_id,search,chosenPlace,min_value,max_value,username){ 
       
    var encodedString ='cat_id=' + encodeURIComponent(cat_id) +
             '&style_id=' + encodeURIComponent(style_id)+
             '&location=' + encodeURIComponent(chosenPlace)+
             '&search=' + encodeURIComponent(search)+
             '&min_value=' + encodeURIComponent(min_value)+
-            '&max_value=' + encodeURIComponent(max_value);
+            '&max_value=' + encodeURIComponent(max_value)+
+            '&username=' + encodeURIComponent(username);
              
   var req = {
             method: 'POST',
@@ -782,6 +785,25 @@ var product_details = function(id,user_id){
 };
 
 
+
+var cms = function(id){ 
+      
+   var encodedString ='id=' + encodeURIComponent(id);
+             
+  var req = {
+            method: 'POST',
+            url: $rootScope.serviceurl+"users/cms_api",
+      data: encodedString,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        };
+        return $http(req).then(function(res){ //console.log(res);  alert('res');
+           $ionicLoading.hide();  
+           return res.data; 
+        });
+};
+
+
+
 var product_details_edit = function(id){ 
       
    var encodedString ='product_id=' + encodeURIComponent(id);
@@ -797,6 +819,25 @@ var product_details_edit = function(id){
            return res.data; 
         });
 };
+
+
+
+var forget_pass = function(email){ 
+      
+   var encodedString ='email=' + encodeURIComponent(email);
+             
+  var req = {
+            method: 'POST',
+            url: $rootScope.serviceurl+"users/forgot_password_api",
+      data: encodedString,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        };
+        return $http(req).then(function(res){ //console.log(res);  alert('res');
+           $ionicLoading.hide();  
+           return res.data; 
+        });
+};
+
 
 
 var twitterlogin = function(data){
@@ -869,7 +910,7 @@ var fblogin  =function(data){
       data: encodedString,
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         };
-        return $http(req).then(function(response){ console.log(response);
+        return $http(req).then(function(response){ console.log(response.data);
 
 if(response.data.ACK != 0) { 
                 storeUserCredentials(response.data.users.email);
@@ -944,6 +985,9 @@ if(response.data.ACK != 0) {
     city_list:city_list,
     twitterlogin:twitterlogin,
     subcategory_list1:subcategory_list1,
+     cms:cms,
+     forget_pass:forget_pass,
+    //cms:cms;
     
     
     isAuthenticated: function() {return isAuthenticated;},

@@ -6451,7 +6451,7 @@ button.item.item-button-right {
 .list:last-child.card {
     margin-bottom: 40px; }
     
-.login-fb{ width: 46px; height: 46px; float: right;}
+.login-fb{ width: 46px; height: 46px; float: none; margin: 0 auto 0;}
 .login-fb img{ width: 100%; margin: 0 auto;}
 .login-tweet{ width: 46px; height: 46px; float: left;}
 .login-tweet img{ width: 100%; margin: 0 auto;}
@@ -6473,6 +6473,17 @@ button.item.item-button-right {
 .card.list .list-item {
   padding-right: 1px;
   padding-left: 1px; }
+
+ .list > form > input[type="checkbox"]{
+    line-height: 23px;
+    width: auto !important;
+    padding: 0 10px !important;
+    margin: 0px 10px 0 0;
+    float: left;
+    display: table-cell;
+    position: relative;
+    top: 2px;
+}
 
 /**
  * Cards and Inset Lists
@@ -9615,10 +9626,14 @@ float: right!important;
    .product_card.search_result .item
 
 .product_card .home_product_img {
-  width: 37%;
-  float: left; }
-  .product_card .home_product_img img {
-    width: 100%; }
+	height: 450px;
+	overflow: hidden;
+}
+/*.product_card .home_product_img img {
+width: 100%; }*/
+.product_card .home_product_img img {
+	max-width: 100%;
+}
     
     /*.product_card .search_product_img {
   width: 20%;
@@ -10134,7 +10149,7 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
 .sidebar_span  img {width: 100%}
 span.sidebar_word {color: #fff;float: left;width: 75%; padding-top:12px;}
 
-.grey_home_part {background: #e4e4e4; padding: 5px 2px; margin-top: -4px;margin-bottom: 5px;}
+.grey_home_part {background: #e4e4e4; padding: 5px 2px; margin-top: -4px;margin-bottom: 5px;min-height: 122px !important;}
 
 .grey_home_part p {white-space: initial; font-size:12px; line-height: 17px;}
 
@@ -10331,7 +10346,7 @@ edit-profile .tab-text-part{margin:45px 10px;}
 /*-----------------------------------------advance search------------------------------*/
 .advance-search{ width: 100%;}
 .advance-search .search-area{ margin-top: 7%; padding: 1%; box-shadow: none;}
-.advance-search .search-area .item{ border-bottom: 1px solid #ccc; margin-bottom: 1px;}
+.advance-search .search-area .item{ border-bottom: 1px solid #ccc; margin-bottom: 10px;}
 .advance-search .search-area .item select{ background: url('../img/drop-down-arrow.png') no-repeat right; -webkit-appearance: none !important; -moz-appearance: none !important; appearance: none !important; color:#727273; }
 
 select{-webkit-appearance: none !important; -moz-appearance: none !important; appearance: none !important;}

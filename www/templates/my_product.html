@@ -12,7 +12,7 @@
 		  		<div class="search_details_body" ng-click="go_product_details(productes.product_id)">
 		    		<h3>{{productes.product_name}}</h3>
 		    		<p class="search_p_name">
-		    		<span class="name_span small_part">Buke, Grey, Whitw</span>
+		    		<span class="name_span small_part">{{productes.type}}</span>
 		    		<p class="price_product_list">$ {{productes.product_amount}}</p>
 		    		<!--<span class="arrow_span up_span"><i class="ion-chevron-right"></i></span>-->
 		    		</p>
@@ -22,7 +22,7 @@
 					<div class="btn-edit" ng-click="myproduct_delete(productes.product_id)"><i class="icon ion-android-delete"></i></div>
 				</div>
 		  	</div>
-		<div ng-if="!my_product">
+		<div ng-if="!my_product && no_my_product">
 			<span>No product added</span>
 		</div>
            <!--  <div class="item">

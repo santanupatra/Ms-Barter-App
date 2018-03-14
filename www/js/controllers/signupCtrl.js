@@ -3,8 +3,13 @@ app.controller('signupCtrl', function($scope,$cordovaGeolocation, $state, $ionic
   $scope.data = {};
   $scope.signup = function(data,loc) {   //console.log(data);alert(); 
   $scope.isDisabled  = false;	
-  data.location = loc.formatted_address;
+  //data.location = loc.formatted_address;
   //alert(data.location);
+  if(data.email == data.cnfemail)
+  {
+  if(data.password == data.cnfpassword)
+  {
+      data.name = data.username;
       AuthService.register(data).then(function(response) { //console.log(response);
 			$scope.isDisabled  = true;									   
 			if(response.ACK==1)
@@ -32,6 +37,24 @@ app.controller('signupCtrl', function($scope,$cordovaGeolocation, $state, $ionic
         template: 'Some problem occurs'
       });
     });  
+}
+else
+{
+  var alertPopup = $ionicPopup.alert({
+        title: 'Registration failed!',
+        template: 'Password and Confirm password not match'
+      });
+}
+}
+else
+{
+  var alertPopup = $ionicPopup.alert({
+        title: 'Registration failed!',
+        template: 'Email and Confirm Email not match'
+      });
+}
+
+
   };
   // ============ Sign In =================
   $scope.signin = function(email,password) { 
@@ -78,6 +101,40 @@ app.controller('signupCtrl', function($scope,$cordovaGeolocation, $state, $ionic
 	//push
 	
   };
+
+
+
+
+
+   $scope.forget_pass = function(email,password) { 
+
+      AuthService.forget_pass(email).then(function(result) { 
+
+
+
+if(result.ACK == 1)
+{
+       var alertPopup = $ionicPopup.alert({
+        title: 'Forgot Password Success!',
+        template: 'Please check your email to recover your password . '
+      });
+      $state.go('login', {}, {reload: true});
+ }
+ else{
+   var alertPopup = $ionicPopup.alert({
+        title: 'Forgot Password Faild!',
+        template: result.msg
+      });
+ }   
+  }, function(err) { 
+      var alertPopup = $ionicPopup.alert({
+        title: 'Forgot Password!',
+        template: 'This email is not registered!'
+      });
+    });
+  };
+
+
   
    $scope.register = function(){ 
   user_id = $scope.sessionuserInfo.accessId;
@@ -89,6 +146,11 @@ app.controller('signupCtrl', function($scope,$cordovaGeolocation, $state, $ionic
   {
   $state.go('signup');
   }
+  };
+
+  
+   $scope.forget = function(){
+  $state.go('forget');
   };
   $scope.goSignin = function(){
 	$state.go('login', {}, {reload: true});
@@ -173,17 +235,18 @@ var fbLoginSuccess = function (response) {
             AuthService.fblogin(profileInfo).then(function (authenticated) { console.log(authenticated);
                 if (authenticated.ACK == 1) {
                  // storeUserCredentials(authenticated.users.email);
-                
+                $scope.setCurrentSession(AuthService.getUserInfo()); 
 
                     $state.go('menu.home', {}, {reload: true});
                     $scope.need_email = false;
                 } else if (authenticated.ACK == 2) {
+                  $scope.setCurrentSession(AuthService.getUserInfo()); 
                     $state.go('menu.edit_profile_social', {}, {reload: true});
                 } 
                 else if(authenticated.ACK == 3)
                 {
                  // storeUserCredentials(authenticated.users.email);
-                
+                $scope.setCurrentSession(AuthService.getUserInfo()); 
                   $state.go('menu.home', {}, {reload: true});
                 }
                 else {
@@ -205,7 +268,7 @@ var fbLoginSuccess = function (response) {
                     } else {
                         var alertPopup = $ionicPopup.alert({
                             title: 'Login faild',
-                            template: 'Login faild please try again'
+                            template: authenticated.msg
                         });
                     }
                 }
@@ -360,8 +423,40 @@ $scope.user_type =   $scope.sessionuserInfo.user_type;
   }
 );
         };
+$scope.cms_terms = function(id){ 
+ var id = id;   
+   
+ AuthService.cms(id).then(function(result) { 
+    $scope.val = result.cms;
+    console.log(result.cms);
+     var alertPopup = $ionicPopup.alert({
+        title: $scope.val.CmsPage.page_title,
+        template: $scope.val.CmsPage.page_description
+      });
+      //$state.go('menu.search');
+    }, function(err) {
+      var alertPopup = $ionicPopup.alert({
+        title: 'False',
+        template: 'No CMS found'
+      });
+    });
+};
 
 
+$scope.city_list = function(){ 
+    
+  
+    AuthService.city_list().then(function(result) { //console.log(result);alert();
+         //$scope.header_name = 'Style';
+         $scope.city = result.city;
+       }, function(err) {
+         var alertPopup = $ionicPopup.alert({
+           title: 'False',
+           template: 'No city found'
+         });
+       });
+   
+   };
 });
 
 

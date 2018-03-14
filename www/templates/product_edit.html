@@ -9,18 +9,16 @@
   			</div>-->
                         <input type="hidden" style="padding-left: 15px;" ng-model="product.id">
   			<div class="list">
-			  <label class="item item-input select-no-lt-pad">
-			    <!--<div class="input-label" style="color: #666;">
-			      Style
-			    </div>-->			    
-			    <select ng-model="product.style_id" name="style" required>
-			      <option>Select Style</option>
-			      <option ng-repeat="cat in style" value="{{cat.id}}">{{cat.name}}</option>
+			  <!-- <label class="item item-input select-no-lt-pad">
+			   		    
+			    <select ng-model="product.search_type" name="style" required>
+			      <option>Select Search Type</option>
+			      <option ng-repeat="cat in type" value="{{cat.name}}">{{cat.name}}</option>
 			    </select>
-			  </label>
+			  </label> -->
 			  <label class="">
                    		<span style="color:red;" ng-show="productForm.style.$dirty && productForm.style.$invalid">
-                    		<span ng-show="productForm.style.$error.required">Style is required</span>  
+                    		<span ng-show="productForm.style.$error.required">Type is required</span>  
                     	</span>
                      </label>
 			  <label class="item item-input select-no-lt-pad">
@@ -52,8 +50,8 @@
                     	</span>
                      </label>
 			  <label class="item item-input item-floating-label select-no-lt-pad">
-			    <span class="input-label">Name</span>
-			    <input type="text" placeholder="Name" ng-model="product.name" name="name" required>
+			    <span class="input-label">Product Name</span>
+			    <input type="text" placeholder="Product Name" ng-model="product.name" name="name" required>
 			  </label>
 		<label class="">
                    		<span style="color:red;" ng-show="productForm.name.$dirty && productForm.name.$invalid">
@@ -65,12 +63,12 @@
 			  		<span class="input-label">Value</span>
 			    	<input type="text" placeholder="Enter product value" style="padding-left: 15px;" ng-model="product.amount" name="amount" required="" style="padding-left: 0;">
 			  	</div>
-				<div class=" item-floating-label valu-right">
+				<!-- <div class=" item-floating-label valu-right">
 			    	<select ng-model="product.currency" name="currency" required>
 			      
-			      <option ng-repeat="cat in currency" value="{{cat.iso}}">{{cat.iso}}</option>
+			      <option  value="SGD">SGD</option>
 			    </select>
-			  	</div>			    
+			  	</div>			     -->
 			  </label>
                             <label class="">
                    		<span style="color:red;" ng-show="productForm.amount.$dirty && productForm.amount.$invalid">
@@ -84,7 +82,7 @@
                     	</span>
                      </label> 
                             
-			  <label class="item item-input item-floating-label select-no-lt-pad">
+			  <!-- <label class="item item-input item-floating-label select-no-lt-pad">
 			    <span class="input-label">Quantity</span>
 			    <input type="text" placeholder="Enter Quantity" ng-model="product.quantity" name="quantity" required="">
 			  </label>
@@ -93,7 +91,7 @@
                     		<span ng-show="productForm.quantity.$error.required">Quantiry is required</span> 
                                 <span ng-show="productForm.quantity.$error.number">Quantity should be number.</span>
                     	</span>
-                     </label>
+                     </label> -->
 			  <label class="item item-input item-floating-label textarea select-no-lt-pad">
 			    <span class="input-label">Description</span>
 			   <textarea placeholder="Enter Description" ng-model="product.description" name="description" required=""></textarea>
@@ -112,7 +110,7 @@
 			     <select ng-model="product.type" name="type" required="">
 			      <option value="">Select Type</option>
 			      <option selected="" value="Used">Used</option>
-			      <option selected="" value="Used">New</option>
+			      <option selected="" value="New">New</option>
 			    </select>
 			  </label>
 			  <label class="">
@@ -144,17 +142,20 @@
 					
 			    	<div class="more-pics" ng-click="loadImage_product_edit(1)">
 <!--			    		<button class="button button-light"> <i class="icon ion-android-add-circle"></i> </button>-->
-			    	<img ng-src="{{product.image3}}">
+			    	<img ng-if="!product_image" ng-src="{{product.image3}}">
+			    	<img ng-if="product_image" ng-src="{{product_image}}">
                                 <i class="icon ion-android-add-circle"></i>
                                 </div>
 			    	<div class="more-pics" ng-click="loadImage_product_edit(2)">
 <!--			    		<button class="button button-light"> <i class="icon ion-android-add-circle"></i> </button>-->
-			    	<img ng-src="{{product.image4}}">
+			    	<img ng-if="!product_image2" ng-src="{{product.image4}}">
+			    	<img ng-if="product_image2" ng-src="{{product_image2}}">
                                 <i class="icon ion-android-add-circle"></i>
                                 </div>
 			    	<div class="more-pics" ng-click="loadImage_product_edit(3)">
 <!--			    		<button class="button button-light"> <i class="icon ion-android-add-circle"></i> </button>-->
-			    	<img ng-src="{{product.image5}}">
+			    	<img ng-if="!product_image3" ng-src="{{product.image5}}">
+			    	<img ng-if="product_image3" ng-src="{{product_image3}}">
                                 <i class="icon ion-android-add-circle"></i>
                                 </div>
 

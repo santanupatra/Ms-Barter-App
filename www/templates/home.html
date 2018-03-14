@@ -25,9 +25,9 @@
 		
 		  	<div class="item" ng-if="ser_product" ng-repeat="productes in ser_product">
 		  		<div class="home_product_img" ng-click="go_product_details(productes.product_id)">
-		  			<img ng-src="{{productes.product_image}}" alt="" style="height: 131px;" class="ion-thumbnail" />
+		  			<img ng-src="{{productes.product_image}}" alt="" style="height: 131px;width:100%;" class="ion-thumbnail" />
 		  		</div>
-		    	<div class="grey_home_part">
+		    	<div class="grey_home_part" style="min-height: 43px !important;">
 		    		<p>{{productes.product_name}}</p>
 		    		<small>{{productes.category_name}}</small>
 		    	</div>
@@ -48,7 +48,7 @@
 		    	</div>
 		    	
 			  </div>
-			  <div ng-if="!ser_product">
+			  <div ng-if="!ser_product && no_ser_product">
 				  <span style="margin-left: 30%;">No product available</span>
 			  </div>
              <!-- <div class="item">

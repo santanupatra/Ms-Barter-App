@@ -1,4 +1,4 @@
-<ion-view view-title="Register">
+<ion-view view-title="Register" ng-init="city_list()">
   <ion-content class="login-wrapper padding slide_height" style="z-index:999999999">
   	<!--<div class="bar bar-header" style="position: static;">
         <div class="buttons buttons-left header-item">
@@ -8,7 +8,7 @@
         </div>
         <div class="h1 title">Create account</div>
     </div>-->
-	<div class="animated slideInRight">
+	<div class="animated slideInRight" >
 		<div class="login_holder">
 			<img ng-src="img/login-logo.png" alt="" class="login_logo"/>
 			 
@@ -19,19 +19,29 @@
 			<form name="signupForm"  class="" novalidate ng-cloak>
 			
                             
-                            <label class="item item-input-inset">
+                           <!--  <label class="item item-input-inset">
 						<i class="icon ion-android-person placeholder-icon"></i>
 						<input type="text" name="name" placeholder="Full Name" ng-model="user.name" required>
+					</label> -->
+
+	            
+                    <!-- <label class="">
+                   		<span style="color:red;" ng-show="signupForm.name.$dirty && signupForm.name.$invalid">
+                    		<span ng-show="signupForm.name.$error.required">Name is required.</span>  
+                    	</span>
+                     </label> -->
+	                
+	                  <label class="item item-input-inset">
+						<i class="icon ion-android-person placeholder-icon"></i>
+						<input type="text" name="username" placeholder="Username" ng-model="user.username" required>
 					</label>
 
 	            
                     <label class="">
-                   		<span style="color:red;" ng-show="signupForm.name.$dirty && signupForm.name.$invalid">
-                    		<span ng-show="signupForm.name.$error.required">Name is required.</span>  
+                   		<span style="color:red;" ng-show="signupForm.username.$dirty && signupForm.username.$invalid">
+                    		<span ng-show="signupForm.username.$error.required">Username is required.</span>  
                     	</span>
                      </label>
-	                
-	                
                      
 	                <label class="item item-input-inset">
 						<i class="icon ion-android-mail placeholder-icon"></i>
@@ -43,6 +53,21 @@
                     		<span ng-show="signupForm.email.$error.email">Invalid email address.</span> 
                     	</span>
                      </label>
+
+
+<label class="item item-input-inset">
+						<i class="icon ion-android-mail placeholder-icon"></i>
+						<input type="email" name="cnfemail" placeholder="Confirm Email" ng-model="user.cnfemail" required>
+					</label>
+                     <label class="">
+                   		<span style="color:red;" ng-show="signupForm.cnfemail.$dirty && signupForm.cnfemail.$invalid">
+                    		<span ng-show="signupForm.cnfemail.$error.required">Confirm Email is required.</span> 
+                    		<span ng-show="signupForm.cnfemail.$error.email">Invalid Confirm email address.</span> 
+                    	</span>
+                     </label>
+
+
+
                      <label class="item item-input-inset">
 						<i class="icon ion-android-mail placeholder-icon"></i>
 						<input type="number" name="phone" placeholder="Phone" ng-model="user.phone" required>
@@ -62,10 +87,24 @@
                     		<span ng-show="signupForm.password.$error.required">Password is required.</span>  
                     	</span>
                      </label>
+
+ 						<label class="item item-input-inset">
+						<i class="icon ion-key placeholder-icon"></i>
+						<input type="password" name="cnfpassword" placeholder="Confirm Password" ng-model="user.cnfpassword" required>
+					</label>
+                     <label class="">
+                   		<span style="color:red;" ng-show="signupForm.cnfpassword.$dirty && signupForm.cnfpassword.$invalid">
+                    		<span ng-show="signupForm.cnfpassword.$error.required">Confirm Password is required.</span>  
+                    	</span>
+                     </label>
+	
                      <label class="item item-input-inset">
 						<i class="icon ion-map placeholder-icon"></i>
-						<input type="text" name="location" ng-model="data.location.formatted_address" placeholder="Location" googleplace id="chosenPlace" required>
-					
+						<!-- <input type="text" name="location" ng-model="data.location.formatted_address" placeholder="Location" googleplace id="chosenPlace" required> -->
+						<select ng-model="user.location" name="location" required>
+			      
+							 <option ng-repeat="ct in city" value="{{ct.name}}">{{ct.name}}</option>
+						  </select>
                     <!-- <input type="text" placeholder="Change address" google-autocomplete-suggestion location="data.location"  on-selection="onAddressSelection(location)" ng-model="data.location.formatted_address" required>-->
                      </label>
 					<label class="">
@@ -73,6 +112,22 @@
                     		<span ng-show="signupForm.location.$error.required">location is required.</span>  
                     	</span>
                      </label>
+
+						
+						
+						<input type="checkbox" name="t_c"  ng-model="user.t_c" required>By proceeding, you agree to Ms Barter’s  <a ng-click="cms_terms(3)">Terms of Service </a> And <a ng-click="cms_terms(7)">Privacy Policy.</a>
+					
+                     <label class="">
+                   		<span style="color:red;" ng-show="signupForm.t_c.$dirty && signupForm.t_c.$invalid">
+                    		<span ng-show="signupForm.t_c.$error.required">terms & conditions and Privacy Policy need to checked.</span>  
+                    	</span>
+                     </label>
+
+	
+
+
+
+
 	                <button class="button button button-full  btnblank" ng-disabled="signupForm.$invalid || isDisabled" style="background: #e55994; border: none; font-family: 'Exo 2', sans-serif; box-shadow: none; margin-top: 30px;" ng-click="signup(user,data.location)">Sign Up</button>
 	           		
 	               </form>

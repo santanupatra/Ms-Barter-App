@@ -25,9 +25,9 @@
 		
 		  	<div class="item" ng-if="product" ng-repeat="productes in product">
 		  		<div class="home_product_img" ng-click="go_product_details(productes.product_id)">
-		  			<img ng-src="{{productes.product_image}}" alt="" style="height: 131px;" class="ion-thumbnail" />
+		  			<img ng-src="{{productes.product_image}}" alt="" style="height: 131px;width:100%;" class="ion-thumbnail" />
 		  		</div>
-		    	<div class="grey_home_part">
+		    	<div class="grey_home_part" style="min-height: 52px !important;">
                             <p>{{productes.product_name}}   <span style="float:right;">{{productes.product_amount}}</span> </p>
 		    		<small ng-if="productes.status != '1'" ng-click="product_accept(productes.send_request_id)">Accept</small>
                                 <small ng-if="productes.status != '2'" ng-click="product_decline(productes.send_request_id)">Decline</small>

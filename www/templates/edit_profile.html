@@ -61,16 +61,32 @@
 		  </label>
 		  <label class="item item-input">
 		    <span class="input-label"> <i class="ion-android-mail"></i> </span>
+		    <input type="text" ng-model="user.username" readonly>
+		  </label>
+		  <label class="item item-input">
+		    <span class="input-label"> <i class="ion-android-mail"></i> </span>
 		    <input type="Email" ng-model="user.email" readonly>
 		  </label>
 		  <label class="item item-input">
 		    <span class="input-label"> <i class="ion-iphone"></i> </span>
 		    <input type="Mobile" ng-model="user.mobile_no">
 		  </label>
+
+		  <label class="item item-input">
+		    <span class="input-label"> <i class="ion-map"></i> </span>
+		    <select ng-model="user.style_id">
+	       <option value="">Select Style</option>
+	      <option ng-repeat="cat in style" value="{{cat.id}}">{{cat.name}}</option>
+	    </select>
+		  </label>
+
 		  <label class="item item-input">
 		    <span class="input-label"> <i class="ion-map"></i> </span>
 		    <input type="Location" ng-model="user.location">
 		  </label>
+
+		  
+
 		  <div class="item" style="background: transparent;">
 		  	<button class="button button-block button-royal" style="background: #e55994; border: none; font-family: 'Exo 2', sans-serif; box-shadow: none; margin-top: 30px;" ng-click="update_profile(user)">Submit</button>
 		  </div>

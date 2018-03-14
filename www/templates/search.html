@@ -20,6 +20,12 @@
   <ion-content class="has-header has-footer  advance-search" style="background: #fff;" >
 	<div class="list search-area" ng-init="category_list();city_list()">
 	<form>	
+	 <div class="row">
+		 <label class="item item-input col col-100">
+		    <input type="text" placeholder="username" ng-model="username">
+		  </label>
+		
+		</div>
             <div class="row">
 		 <label class="item item-input col col-50">
 		    <input type="text" placeholder="Keyword Search" ng-model="search">
@@ -27,7 +33,7 @@
 		 <label class="item col col-50">
 <!--		    <input type="text" placeholder="Product Location" ng-model="chosenPlace" googleplace id="chosenPlace">-->
 		  <select ng-model="chosenPlace">
-	      
+	       <option value="">Select City</option>
 	      <option ng-repeat="cat in city" value="{{cat.name}}">{{cat.name}}</option>
 	    </select>
                  </label>
@@ -36,13 +42,13 @@
 	 	<div class="row">
 	 	<label class="item col col-50">
 		    <select ng-model="cat_id">
-	      
+	       <option value="">Select Category</option>
 	      <option ng-repeat="cat in category" value="{{cat.id}}">{{cat.name}}</option>
 	    </select>
 		  </label>
 		 <label class="item item-input col col-50">
 		    <select ng-model="style_id">
-	      
+	       <option value="">Select Style</option>
 	      <option ng-repeat="cat in style" value="{{cat.id}}">{{cat.name}}</option>
 	    </select>
 		  </label>
@@ -54,14 +60,61 @@
 		<h4 class="value" style=" margin-bottom: 0; padding-bottom: 0; margin-top: 10px; margin-left: 5px;">Value</h4>	  	  
 	  <div class="row">
 	  	<label class="item item-input col col-50">
-	    <input type="text" placeholder="Min Value" ng-model="min_value">
+	  
+	     <select ng-model="min_value">
+	       <option value="">From</option>
+	       <option value="1">1</option>
+	       <option value="500">500</option>
+	       <option value="1000">1000</option>
+	      <option value="1500">1500</option>
+	      <option value="2000">2000</option>
+	      <option value="2500">2500</option>
+	      <option value="3000">3000</option>
+	      <option value="3500">3500</option>
+	      <option value="4000">4000</option>
+	      <option value="4500">4500</option>
+	      <option value="5000">5000</option>
+	      <option value="5500">5500</option>
+	      <option value="6000">6000</option>
+	      <option value="6500">6500</option>
+	      <option value="7000">7000</option>
+	      <option value="7500">7500</option>
+	      <option value="8000">8000</option>
+	      <option value="8500">8500</option>
+	      <option value="9000">9000</option>
+	      
+	    </select>
+
 	  </label>
 		<label class="item item-input col col-50">
-	    <input type="text" placeholder="Max Value" ng-model="max_value">
+	    
+	     <select ng-model="max_value">
+	       <option value="">To</option>
+	       <option value="500">500</option>
+	       <option value="1000">1000</option>
+	      <option value="1500">1500</option>
+	      <option value="2000">2000</option>
+	      <option value="2500">2500</option>
+	      <option value="3000">3000</option>
+	      <option value="3500">3500</option>
+	      <option value="4000">4000</option>
+	      <option value="4500">4500</option>
+	      <option value="5000">5000</option>
+	      <option value="5500">5500</option>
+	      <option value="6000">6000</option>
+	      <option value="6500">6500</option>
+	      <option value="7000">7000</option>
+	      <option value="7500">7500</option>
+	      <option value="8000">8000</option>
+	      <option value="8500">8500</option>
+	      <option value="9000">9000</option>
+	      <option value="10000">10000</option>
+	      <option value="10000">Above 10000</option>
+	    </select>
 	  </label>
 	  </div>
 	  
-	  <button class="button button-royal" ng-click="adv_product_search(cat_id,style_id,search,chosenPlace,min_value,max_value)">SEARCH</button>
+	  <button class="button button-royal" ng-click="adv_product_search(cat_id,style_id,search,chosenPlace,min_value,max_value,username)">SEARCH</button>
 </form>
 	  
 </div>
