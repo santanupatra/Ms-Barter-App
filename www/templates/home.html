@@ -3,7 +3,7 @@
 
 
   <ion-content class="padding-top"style="background: #fff;" >
-	<ion-slide-box on-slide-changed="slideHasChanged($index)">
+	<!--<ion-slide-box on-slide-changed="slideHasChanged($index)">
 	  <ion-slide>
 	   <div class="home_slide">
 	   	<img src="img/slider.png" alt="" />
@@ -17,7 +17,7 @@
 	   	</div>
 	  </ion-slide>
 
-	</ion-slide-box>
+	</ion-slide-box>-->
 	
 	<div class="row home-body-area" ng-init="product_search()">
 		<div class="product_card" style="width:100%">
@@ -40,7 +40,8 @@
 		    			</div>
 		    			<div class="col-75">
 		    				<div class="detail_home">
-		    					<h2>{{productes.user_name}}</h2>
+								<h2>{{productes.user_name}}</h2>
+								<i class="icon ion-ios-star" ng-repeat="n in range(1,productes.rate) "></i><i class="icon ion-ios-star-outline"  ng-repeat="n in range(1,productes.negrate) "></i>
 				                <!--<p>Watches</p>-->
 		    				</div>
 		    			</div>

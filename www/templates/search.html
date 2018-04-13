@@ -1,4 +1,4 @@
-<ion-view view-title="Intro">
+<ion-view view-title="Intro" ng-init="adv_product_search(cat_id,style_id,search,chosenPlace,min_value,max_value,username)">
 <div class="row bar bar-header">
         <div class="col col-10">
             <i style="font-size: 33px; color:#fff;" class="ion-android-arrow-back"></i>
@@ -82,7 +82,7 @@
 	      <option value="8000">8000</option>
 	      <option value="8500">8500</option>
 	      <option value="9000">9000</option>
-	      
+	      <option value="10000">Above 10000</option>
 	    </select>
 
 	  </label>
@@ -109,7 +109,7 @@
 	      <option value="8500">8500</option>
 	      <option value="9000">9000</option>
 	      <option value="10000">10000</option>
-	      <option value="10000">Above 10000</option>
+	      
 	    </select>
 	  </label>
 	  </div>
@@ -121,23 +121,31 @@
 	
 	
 <!----listing start--------------------------------------------------------->
-   <div class="row">
+   
+<!--		    		<span class="arrow_span"><i class="ion-chevron-right"></i></span>-->
+					
+<div class="row">
 		<div class="product_card search_listings" style="width:100%">
 		
-                    <div class="item" ng-repeat="prd in ser_product" ng-click="go_product_details(prd.product_id)">
+        <div class="item" ng-if="ser_product" ng-repeat="prd in ser_product" ng-click="go_product_details(prd.product_id)">
 		  		<div class="search_product_img">
 		  			<img ng-src="{{prd.product_image}}" alt="" style="height:60px;" />
 		  		</div>
 		  		<div class="search_details_body">
-		    		<h3>{{prd.product_name}}"</h3>
+						<h3>{{prd.product_name}}</h3>
+						<!-- <h2>{{prd.user_name}}</h2> -->
+					
+						<!-- <div ng-repeat="n in range(0,5)">{{n}}</div> -->
+						<i class="icon ion-ios-star" ng-repeat="n in range(1,prd.rate) "></i><i class="icon ion-ios-star-outline"  ng-repeat="n in range(1,prd.negrate) "></i>
 		    		<p class="search_p_name">
 		    		<span class="name_span"> <i style="color: #31cf12;" class="ion-android-pin"></i> {{prd.product_location}}</span>
-<!--		    		<span class="arrow_span"><i class="ion-chevron-right"></i></span>-->
-		    		</p>
+</p>
 		    	</div>
 		  	</div>
 
-            
+            <div ng-if="!ser_product">
+							<p style="text-align:center">No search product available</p>
+							</div>
 		  	
 		  	
 		  	

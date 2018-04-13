@@ -1,5 +1,5 @@
 var app = angular.module('starter');
-app.controller('homeCtrl', function($location,$window,$ionicSideMenuDelegate,$ionicHistory,$ionicModal,$ionicPlatform,$scope, $state,$stateParams, $ionicPopup, AuthService,$window,$ionicLoading,$q,$ionicSlideBoxDelegate,$cordovaCamera, $cordovaFile, $cordovaFileTransfer,$cordovaDevice, $cordovaActionSheet,$rootScope,$cordovaGeolocation,$timeout,$interval,$ionicScrollDelegate,$translate,$cordovaDevice,$cordovaSocialSharing,$http,$cordovaImagePicker) { //,$cordovaOauth
+app.controller('homeCtrl', function($location,$anchorScroll,$window,$ionicSideMenuDelegate,$ionicHistory,$ionicModal,$ionicPlatform,$scope, $state,$stateParams, $ionicPopup, AuthService,$window,$ionicLoading,$q,$ionicSlideBoxDelegate,$cordovaCamera, $cordovaFile, $cordovaFileTransfer,$cordovaDevice, $cordovaActionSheet,$rootScope,$cordovaGeolocation,$timeout,$interval,$ionicScrollDelegate,$translate,$cordovaDevice,$cordovaSocialSharing,$http,$cordovaImagePicker) { //,$cordovaOauth
   
  
  
@@ -9,8 +9,8 @@ $scope.fb = function(link){
 
 $scope.productImages_path  = [];
   $scope.is_fav = 1;
-      $scope.is_sold = 0;
-      
+      $scope.is_sold = 1;
+      $scope.is_current = 0;
       $scope.cat_id='';
       $scope.style_id='';
       $scope.search='';
@@ -128,6 +128,7 @@ AuthService.get_chat_list(user_id).then(function(result) { //console.log(result)
 //      $scope.showdiv = 1;
 //      console.log($scope.user);
     }, function(err) {
+      $ionicLoading.hide(); 
 //      var alertPopup = $ionicPopup.alert({
 //        title: $translate.instant('False'),
 //        template: $translate.instant('No details found')
@@ -160,11 +161,12 @@ else
 //alert(user_id);
 $scope.product_id = product_id;
 $scope.seller_id = seller_id;
-
+$scope.log_user_id =user_id 
 //alert($scope.seller_id);
 //alert($scope.product_id);
  if(user_id)
   {
+    
 AuthService.get_chat(product_id,user_id,seller_id).then(function(result) { //console.log(result);alert();
      
     
@@ -172,9 +174,12 @@ AuthService.get_chat(product_id,user_id,seller_id).then(function(result) { //con
      // $scope.user_c = result.user_details;
       $scope.chat_result = result.chat;
      $scope.details_product = result.product;
+     $scope.last_id = result.last_chat_id
       $scope.showdiv = 1;
+      //$state.go('menu.chat', {}, {reload: true});
 //      console.log($scope.user);
     }, function(err) {
+      $ionicLoading.hide(); 
 //      var alertPopup = $ionicPopup.alert({
 //        title: $translate.instant('False'),
 //        template: $translate.instant('No details found')
@@ -194,6 +199,29 @@ AuthService.get_chat(product_id,user_id,seller_id).then(function(result) { //con
 
 
 };
+
+$scope.chat_message = function(){ alert('fghfg');
+  AuthService.get_chat($scope.product_id,$scope.user_id,$scope.seller_id).then(function(result) { //console.log(result);alert();
+     
+    
+    $scope.header_name = 'Home';
+     // $scope.user_c = result.user_details;
+      $scope.chat_result = result.chat;
+     $scope.details_product = result.product;
+     $scope.last_id = result.last_chat_id
+      $scope.showdiv = 1;
+     // $state.go('menu.chat', {}, {reload: true});
+//      console.log($scope.user);
+    }, function(err) {
+      $ionicLoading.hide(); 
+//      var alertPopup = $ionicPopup.alert({
+//        title: $translate.instant('False'),
+//        template: $translate.instant('No details found')
+//      });
+    })
+}
+
+
 $scope.close_chat = function(){ 
     $state.reload();
     $scope.showdiv = 0;
@@ -279,6 +307,7 @@ $scope.chat_open = function(){
   //console.log(result);alert();
    $scope.comment = result.data;
    }, function(err) {
+    $ionicLoading.hide(); 
             console.log(err);
         });
              var alertPopup = $ionicPopup.alert({
@@ -288,6 +317,7 @@ $scope.chat_open = function(){
 				
          } 
         }, function(err) {
+          $ionicLoading.hide(); 
             console.log(err);
         }); 
              return $scope.data.wifi;
@@ -311,6 +341,7 @@ $scope.logout = function() {
       $ionicHistory.clearCache();
       $state.go('menu.home', null, {reload: true});
     }, function(err) {
+      $ionicLoading.hide(); 
       var alertPopup = $ionicPopup.alert({
         title: $translate.instant('False'),
         template: $translate.instant('not logout')
@@ -413,6 +444,7 @@ AuthService.user_profile_int(user_id).then(function(result) { //console.log(resu
       $scope.user_p = result.user_details;
       //console.log($scope.user_p);
     }, function(err) {
+      $ionicLoading.hide(); 
 //      var alertPopup = $ionicPopup.alert({
 //        title: $translate.instant('False'),
 //        template: $translate.instant('No details found')
@@ -437,6 +469,7 @@ AuthService.get_notification(user_id).then(function(result) { //console.log(resu
       $scope.notification = result.notification;
      // console.log($scope.user);
     }, function(err) {
+      $ionicLoading.hide(); 
       var alertPopup = $ionicPopup.alert({
         title: $translate.instant('False'),
         template: $translate.instant('No notification found')
@@ -453,6 +486,7 @@ AuthService.get_notification(user_id).then(function(result) { //console.log(resu
       $ionicHistory.clearCache();
       $state.go('menu.home', null, {reload: true});
     }, function(err) {
+      $ionicLoading.hide(); 
       var alertPopup = $ionicPopup.alert({
         title: $translate.instant('False'),
         template: $translate.instant('not logout')
@@ -525,7 +559,9 @@ AuthService.update_profile(user).then(function(result) { console.log(result);
         title: 'Success',
         template: 'Profile updated successfully'
       });
-    }, function(err) { console.log(err);
+    }, function(err) {
+      $ionicLoading.hide(); 
+      console.log(err);
       var alertPopup = $ionicPopup.alert({
         title: 'False',
         template: 'profile not updated'
@@ -548,7 +584,9 @@ AuthService.user_profile(user_id).then(function(result) { //console.log(result);
       $scope.header_name = 'Home';
       $scope.user = result.user_details;
       console.log($scope.user);
-    }, function(err) { console.log(err);
+    }, function(err) { 
+      $ionicLoading.hide(); 
+      console.log(err);
       var alertPopup = $ionicPopup.alert({
         title: $translate.instant('False'),
         template: $translate.instant('No user found')
@@ -560,7 +598,9 @@ AuthService.category_list().then(function(result) { console.log(result);
       $scope.style = result.style;
       $scope.currency = result.currency;
       //console.log( $scope.currency);
-    }, function(err) { console.log(err);
+    }, function(err) { 
+      $ionicLoading.hide(); 
+      console.log(err);
       var alertPopup = $ionicPopup.alert({
         title: $translate.instant('False'),
         template: $translate.instant('No category found')
@@ -584,7 +624,9 @@ AuthService.update_profile(user).then(function(result) { console.log(result);
         title: 'True',
         template: 'Product updated successfully'
       });
-    }, function(err) { console.log(err);
+    }, function(err) { 
+      $ionicLoading.hide(); 
+      console.log(err);
       var alertPopup = $ionicPopup.alert({
         title: 'False',
         template: 'profile not up'
@@ -623,6 +665,7 @@ $scope.product_edit_details = function(){
       $scope.find_sub_category($scope.cat_id);
       //$state.go('menu.search');
     }, function(err) {
+      $ionicLoading.hide(); 
       var alertPopup = $ionicPopup.alert({
         title: 'False',
         template: 'No product found'
@@ -661,7 +704,9 @@ AuthService.category_list().then(function(result) { //console.log(result);
       $scope.type = result.type;
       $scope.currency = result.currency;
       //console.log( $scope.currency);
-    }, function(err) { console.log(err);
+    }, function(err) {
+      $ionicLoading.hide(); 
+      console.log(err);
       var alertPopup = $ionicPopup.alert({
         title: $translate.instant('False'),
         template: $translate.instant('No category found')
@@ -677,7 +722,9 @@ AuthService.sub_category_list(cat_id).then(function(result) { //console.log(resu
       $scope.product_sub_category = result.category;
       
       console.log( $scope.sub_category);
-    }, function(err) { console.log(err);
+    }, function(err) { 
+      $ionicLoading.hide(); 
+      console.log(err);
       var alertPopup = $ionicPopup.alert({
         title: $translate.instant('False'),
         template: $translate.instant('No category found')
@@ -709,6 +756,7 @@ $scope.add_favourite = function(id){
           //alert(result.ACK);
         }
     }, function(err) {
+      $ionicLoading.hide(); 
       var alertPopup = $ionicPopup.alert({
         title: 'False',
         template: 'Product not add to favorite'
@@ -748,6 +796,7 @@ $scope.remove_favourite = function(id){
           //alert(result.ACK);
         }
     }, function(err) {
+      $ionicLoading.hide(); 
       var alertPopup = $ionicPopup.alert({
         title: 'False',
         template: 'Product not add to favorite'
@@ -785,6 +834,7 @@ $scope.product_request_rq = function(id,seller_id){
           //alert(result.ACK);
         }
     }, function(err) {
+      $ionicLoading.hide(); 
       var alertPopup = $ionicPopup.alert({
         title: 'False',
         template: 'Product not requestd'
@@ -806,7 +856,7 @@ $scope.product_request_rq = function(id,seller_id){
  $scope.loadImage_p = function() { 
   var options = {
     title: 'select image',
-    buttonLabels: ['Load from library', 'camera'],
+    buttonLabels: ['Load From Library', 'Camera'],
     addCancelButtonWithLabel: 'Cancel',
     androidEnableCancelButton : true,
   };
@@ -934,7 +984,7 @@ $scope.selectPictures = function(sourceType) {
     }
                            });
   },
-  function(err){
+  function(err){  $ionicLoading.hide(); 
     // Not always an error, maybe cancel was pressed...
   })
 };
@@ -959,7 +1009,7 @@ $scope.pathForImage3 = function(image) {
  $scope.loadImage_b = function() { 
   var options = {
     title: 'Select Image',
-    buttonLabels: ['Load from library', 'camera'],
+    buttonLabels: ['Load From Library', 'Camera'],
     addCancelButtonWithLabel: 'Cancel',
     androidEnableCancelButton : true,
   };
@@ -1087,7 +1137,7 @@ $scope.selectPictures1 = function(sourceType) {
     }
                            });
   },
-  function(err){
+  function(err){  $ionicLoading.hide(); 
     // Not always an error, maybe cancel was pressed...
   })
 };
@@ -1113,7 +1163,7 @@ $scope.pathForImage4 = function(image) {
        AuthService.product_list().then(function(result) { //console.log(result);
       $scope.header_name = 'Home';
       $scope.product = result.product;
-    }, function(err) {
+    }, function(err) {  $ionicLoading.hide(); 
       var alertPopup = $ionicPopup.alert({
         title: 'False',
         template: 'No product found'
@@ -1154,7 +1204,7 @@ $scope.myproduct_list = function(){
       }
       
       //$state.go('menu.my_product');
-    }, function(err) {
+    }, function(err) {  $ionicLoading.hide(); 
       var alertPopup = $ionicPopup.alert({
         title: 'False',
         template: 'No product found'
@@ -1182,7 +1232,7 @@ $scope.myproduct_delete = function(id){
       });
       $scope.my_product = result.product;
       //$state.go('menu.my_product');
-    }, function(err) {
+    }, function(err) {  $ionicLoading.hide(); 
       var alertPopup = $ionicPopup.alert({
         title: 'False',
         template: 'No product found'
@@ -1202,7 +1252,7 @@ $scope.product_request = function(){
 //      console.log($scope.productes);
 //      alert();
       //$state.go('menu.my_product');
-    }, function(err) {
+    }, function(err) {  $ionicLoading.hide(); 
       var alertPopup = $ionicPopup.alert({
         title: 'False',
         template: 'No product request found'
@@ -1224,7 +1274,7 @@ $scope.product_accept = function(req_id){
         title: 'Success',
         template: 'Product request accept successfully'
       });
-    }, function(err) {
+    }, function(err) {  $ionicLoading.hide(); 
       var alertPopup = $ionicPopup.alert({
         title: 'False',
         template: 'No product found'
@@ -1245,7 +1295,7 @@ $scope.product_decline = function(req_id){
         title: 'Success',
         template: 'Product request decline successfully'
       });
-    }, function(err) {
+    }, function(err) {  $ionicLoading.hide(); 
       var alertPopup = $ionicPopup.alert({
         title: 'False',
         template: 'No product found'
@@ -1253,19 +1303,71 @@ $scope.product_decline = function(req_id){
     });
 
 };
+$scope.request_reject = function(id){
 
+
+  $ionicPopup.confirm({
+    title: 'Cancel Request',
+    template: 'Are you sure you want to cancel this request?'
+ }).then(function (res) {
+      if (res) {
+        AuthService.cancel_request(id).then(function(result) { //console.log(result);alert();
+          user_id = $scope.sessionuserInfo.accessId;
+          AuthService.my_product_fav_list(user_id).then(function(result) { //console.log(result);alert();
+               $scope.header_name = 'My Product';
+               $scope.my_fav_product = result.product.favourite;
+               $scope.my_sold_product = result.product.sold;
+               $scope.my_current_product = result.product.current;
+              // alert(JSON.stringify( $scope.my_current_product))
+               $scope.user = result.product.user;
+               $scope.is_fav = 1;
+               $scope.is_sold = 1;
+               $scope.is_current = 0;
+               console.log($scope.my_fav_product);
+               //$state.go('menu.my_product');
+             }, function(err) {  $ionicLoading.hide(); 
+               var alertPopup = $ionicPopup.alert({
+                 title: 'False',
+                 template: 'No product found'
+               });
+             });
+      
+        }, function(err) {  $ionicLoading.hide(); 
+          var alertPopup = $ionicPopup.alert({
+            title: 'False',
+            template: 'No product found'
+          });
+        });
+      }
+ });
+
+
+
+
+
+
+
+
+
+
+
+ 
+}
 $scope.myproduct_fav_list = function(){ 
   user_id = $scope.sessionuserInfo.accessId;
  AuthService.my_product_fav_list(user_id).then(function(result) { //console.log(result);alert();
       $scope.header_name = 'My Product';
       $scope.my_fav_product = result.product.favourite;
       $scope.my_sold_product = result.product.sold;
+      $scope.my_current_product = result.product.current;
+     // alert(JSON.stringify( $scope.my_current_product))
       $scope.user = result.product.user;
       $scope.is_fav = 1;
-      $scope.is_sold = 0;
+      $scope.is_sold = 1;
+      $scope.is_current = 0;
       console.log($scope.my_fav_product);
       //$state.go('menu.my_product');
-    }, function(err) {
+    }, function(err) {  $ionicLoading.hide(); 
       var alertPopup = $ionicPopup.alert({
         title: 'False',
         template: 'No product found'
@@ -1276,11 +1378,18 @@ $scope.myproduct_fav_list = function(){
 $scope.is_solds = function(){ 
     $scope.is_fav = 1;
       $scope.is_sold = 0;
+      $scope.is_current = 1;
 };
 
+$scope.is_currents = function(){ 
+  $scope.is_fav = 1;
+    $scope.is_current = 0;
+    $scope.is_sold = 1;
+};
 $scope.is_favs = function(){ 
     $scope.is_fav = 0;
       $scope.is_sold = 1;
+      $scope.is_current = 1;
 };
 $scope.abcc = function()
 {
@@ -1299,7 +1408,7 @@ $scope.category_list1 = function(){
       $scope.style = result.style;
       $scope.currency = result.currency;
       //$state.go('menu.my_product');
-    }, function(err) {
+    }, function(err) {  $ionicLoading.hide(); 
       var alertPopup = $ionicPopup.alert({
         title: 'False',
         template: 'No category found'
@@ -1328,7 +1437,7 @@ $scope.no_subcategory = '';
       //$scope.style = result.style;
       //$scope.currency = result.currency;
       //$state.go('menu.my_product');
-    }, function(err) {
+    }, function(err) {  $ionicLoading.hide(); 
       var alertPopup = $ionicPopup.alert({
         title: 'False',
         template: 'No subcategory found'
@@ -1344,6 +1453,7 @@ $scope.style_list = function(){
       $scope.header_name = 'Style';
       $scope.style = result.style;
     }, function(err) {
+      $ionicLoading.hide(); 
       var alertPopup = $ionicPopup.alert({
         title: 'False',
         template: 'No style found'
@@ -1359,7 +1469,7 @@ $scope.city_list = function(){
  AuthService.city_list().then(function(result) { //console.log(result);alert();
       //$scope.header_name = 'Style';
       $scope.city = result.city;
-    }, function(err) {
+    }, function(err) {  $ionicLoading.hide(); 
       var alertPopup = $ionicPopup.alert({
         title: 'False',
         template: 'No city found'
@@ -1385,7 +1495,7 @@ $scope.product_add = function(data,cat_id,item_condition,chosenPlace){
         template: 'Product added successfully'
       });
       $state.go('menu.my_product',{'id':user_id}, {reload: true});
-    }, function(err) {
+    }, function(err) {  $ionicLoading.hide(); 
       var alertPopup = $ionicPopup.alert({
         title: 'False',
         template: 'No product added'
@@ -1416,7 +1526,7 @@ $scope.product_edit = function(data,cat_id,item_condition,chosenPlace){
         template: 'Product edited successfully'
       });
       $state.go('menu.my_product',{'id':user_id}, {reload: true});
-    }, function(err) {
+    }, function(err) {   $ionicLoading.hide(); 
       var alertPopup = $ionicPopup.alert({
         title: 'False',
         template: 'No product edited'
@@ -1453,13 +1563,13 @@ $scope.product_search = function(){
  AuthService.product_search(id,type).then(function(result) { //console.log(result);alert();
       $scope.header_name = 'Product Search';
 
-      if(result.product)
+      if(result.product.length>0)
       {
          $scope.ser_product = result.product;
          $scope.no_ser_product ='';
       }
       else
-      {
+      { 
         $scope.no_ser_product ='No product available';
       }
       $ionicLoading.hide();
@@ -1473,7 +1583,14 @@ $scope.product_search = function(){
     });
 };
 
-
+$scope.range = function(min, max, step) {
+  step = step || 1;
+  var input = [];
+  for (var i = min; i <= max; i += step) {
+      input.push(i);
+  }
+  return input;
+};
 
 $scope.adv_product_search = function(cat_id,style_id,search,chosenPlace,min_value,max_value,username){ 
   
@@ -1481,7 +1598,7 @@ $scope.adv_product_search = function(cat_id,style_id,search,chosenPlace,min_valu
       $scope.header_name = 'Product Search';
       $scope.ser_product = result.product;
       //$state.go('menu.search');
-    }, function(err) {
+    }, function(err) {   $ionicLoading.hide(); 
       var alertPopup = $ionicPopup.alert({
         title: 'False',
         template: 'No product found'
@@ -1516,12 +1633,65 @@ $scope.product_details = function(){
      $scope.header_name = 'Product Search';
       $scope.products = result.product;
       //$state.go('menu.search');
-    }, function(err) {
+    }, function(err) {   $ionicLoading.hide(); 
       var alertPopup = $ionicPopup.alert({
         title: 'False',
         template: 'No product found'
       });
-    });
+    });$scope.showFeedbackPopup = function(fav) {
+      //console.log(fav);
+      $scope.feedbackRatingsObject = {
+      iconOn: 'ion-ios-star', //Optional
+      iconOff: 'ion-ios-star-outline', //Optional
+      iconOnColor: 'rgb(200, 200, 100)', //Optional
+      iconOffColor: 'rgb(200, 100, 100)', //Optional
+      rating: fav.rating, //Optional
+      minRating: 0, //Optional
+      maxRating:5,
+      readOnly: false, //Optional
+      callback: function(rating,index) { //Mandatory
+      $scope.feedBackPopData.rating = rating;
+      }
+      };
+      $scope.feedBackPopData = fav;
+      $scope.data = {}
+      
+      // Custom popup
+      var myPopup = $ionicPopup.show({
+                                     template: '<input type = "text" ng-model = "feedBackPopData.feedback"><ionic-ratings  ratingsobj="feedbackRatingsObject" index="0"></ionic-ratings>',
+                                     title: 'Feedback',
+                                     subTitle: 'Please enter your feedback',
+                                     scope: $scope,
+                                     
+                                     buttons: [
+                                               { text: 'Cancel' }, {
+                                               text: '<b>Save</b>',
+                                               type: 'button-positive',
+                                               onTap: function(e) {
+                                               
+                                               if (!$scope.feedBackPopData.feedback || !$scope.feedBackPopData.rating) {
+                                               console.log("No data",$scope.feedBackPopData);
+                                               e.preventDefault();
+                                               } else {
+                                               console.log("data",$scope.feedBackPopData);
+                                               return $scope.feedBackPopData;
+                                               }
+                                               }
+                                               }
+                                               ]
+                                     });
+      
+      myPopup.then(function(res) {
+                   if(res)
+                   {
+                   var data = {product_id:res.product_id,user_id:$scope.sessionuserInfo.accessId,message:res.feedback,ratting:res.rating};
+                   AuthService.saveFeedback(data).then(function(d){
+                                                       console.log(d);
+                                                   })
+                   }
+                   
+                   });
+      };
 };
 
 
@@ -1535,7 +1705,7 @@ $scope.cms_terms = function(id){
         template: $scope.val.page_description
       });
       //$state.go('menu.search');
-    }, function(err) {
+    }, function(err) {   $ionicLoading.hide(); 
       var alertPopup = $ionicPopup.alert({
         title: 'False',
         template: 'No CMS found'
@@ -1553,7 +1723,7 @@ $scope.cms_terms = function(id){
 
   var options = {
     title: 'Select Image',
-    buttonLabels: ['Load from library', 'camera'],
+    buttonLabels: ['Load From Library', 'Camera'],
     addCancelButtonWithLabel: 'Cancel',
     androidEnableCancelButton : true,
   };
@@ -1636,7 +1806,7 @@ $scope.selectPictures_product = function(sourceType,id) {
         if(id == 1)
     {
       $scope.product_image8 = $scope.ret_img.link;  
-      alert($scope.product_image8)
+    //  alert($scope.product_image8)
     }
     else if(id == 2)
     {
@@ -1710,7 +1880,7 @@ var allimg= $scope.ret_img.name;
     }
                            });
   },
-  function(err){
+  function(err){   $ionicLoading.hide(); 
     // Not always an error, maybe cancel was pressed...
   })
 };
@@ -1722,7 +1892,7 @@ var allimg= $scope.ret_img.name;
      
   var options = {
     title: 'Select Image',
-    buttonLabels: ['Load from library', 'camera'],
+    buttonLabels: ['Load From Library', 'Camera'],
     addCancelButtonWithLabel: 'Cancel',
     androidEnableCancelButton : true,
   };
@@ -1882,7 +2052,7 @@ if(id == 1)
     }
                            });
   },
-  function(err){
+  function(err){   $ionicLoading.hide(); 
     // Not always an error, maybe cancel was pressed...
   })
 };
@@ -1917,19 +2087,20 @@ $scope.addmessage = function(msg,product){
           if(result.ACK === 1)  { $scope.isDisabledchat = false;
 			// alert(result.last_id);
       console.log(result.inst_message);
-            var myEl = angular.element( document.querySelector( '#sw_msg' ) );
-     myEl.append(result.inst_message);
-	  $scope.msg4='';
+            //var myEl = angular.element( document.querySelector( '#sw_msg' ) );
+     //myEl.append(result.inst_message);
+    $scope.msg4='';
+    $scope.chat_result.push({status:1,msg:msg,user_image:result.user_image})
 	  $scope.last_id = result.last_chat.last_chat_id;
           //alert($scope.last_id);
-	 $ionicScrollDelegate.scrollBottom();
+	 //$ionicScrollDelegate.scrollBottom();
 	 $scope.isDisabledchat = false;
 			//console.log(result);
 		  }
           else { 
               $scope.auctionlist = "";
             }
-        }, function(err) {
+        }, function(err) {   $ionicLoading.hide(); 
             console.log(err);
         });
 	   };
@@ -1952,65 +2123,114 @@ $scope.addmessage = function(msg,product){
           if(result.ACK === 1)  { $scope.isDisabledchat = false;
 			// alert(result.last_id);
       console.log(result.inst_message);
-            var myEl = angular.element( document.querySelector( '#sw_msg' ) );
-     myEl.append(result.inst_message);
+           // var myEl = angular.element( document.querySelector( '#sw_msg' ) );
+    // myEl.append(result.inst_message);
+    var v = $scope.chat_result;
+    v.push({status:2,msg:msg,user_image:result.user_image});
+    $scope.chat_result = {};
+    $scope.chat_result = v;
 	  $scope.msg4='';
-	  $scope.last_id = result.last_chat.last_chat_id;
+    $scope.last_id = result.last_chat.last_chat_id;
+    objDiv = document.getElementById("sw_msg");
+          //alert('hi')
+      objDiv.scrollTop = objDiv.scrollHeight+50;
+    //$ionicScrollDelegate.$getByHandle('theBottom').scrollBottom(true);
+    
+    // $location.hash(theBottom);
+
+    //        $ionicScrollDelegate.anchorScroll();
+   // document.getElementById("theBottom").scrollIntoView();
           //alert($scope.last_id);
-	 $ionicScrollDelegate.scrollBottom();
+   //$ionicScrollDelegate.anchorScroll();
+  // $ionicScrollDelegate.$getByHandle('chatbox').scrollBottom();
+    //$location.hash('scr_cht');
+
+  //  // call $anchorScroll()
+  // $anchorScroll();
+  //  $location.hash(id);
+  // alert('hi');
+  //  var delegate = $ionScrollDelegate.getByHandle('chatbox');
+  //  delegate.scrollBottom(true);
+
+
+
+
 	 $scope.isDisabledchat = false;
 			//console.log(result);
 		  }
           else { 
               $scope.auctionlist = "";
             }
-        }, function(err) {
+        }, function(err) {   $ionicLoading.hide(); 
             console.log(err);
         });
 	   }; 
     
     
-    
+//      $interval(function () {
+//         console.log('here');
+//   alert('here');
+ 
+//  }, 1000);
            
 $interval(function () { 
 		//console.log($scope.friend_id);
 		//console.log($scope.last_id);
 		log_user_id = $scope.sessionuserInfo.accessId;
-      
+      //console.log(	log_user_id )
       var current_path = $location.path();
     
     res = current_path.split("/");
-    if(res[1] == 'product_details' || res[1] == 'request_list')
+    console.log($scope.last_id)
+    if(res[1] == 'product_details' || res[1] == 'request_list'|| res[1]=='chat_list')
     {  
+
 		if($scope.last_id && $scope.seller_id && log_user_id)
 		{  
 			log_user_id = $scope.sessionuserInfo.accessId;
 			//$scope.last_id = $scope.last_id;
-		//var last_id = $scope.last_id;	
+    //var last_id = $scope.last_id;	
+    //console.log($scope.product_id)
     $scope.not_last = $scope.last_id;
 		var friend_id = $scope.friend_id; console.log($scope.last_id);
 		   AuthService.last_message(log_user_id,$scope.last_id,$scope.seller_id,$scope.product_id).then(function(result) {
 			console.log(result);
           if(result.ACK === 1)  {
-			 
-            var myEl = angular.element( document.querySelector( '#sw_msg' ) );
-     myEl.append(result.update_message);
+			 console.log($scope.chat_result)
+             //var myEl = angular.element( document.querySelector( '#sw_msg' ) );
+     // myEl.append(result.update_message);
+     //console.log(result.update_message.length)
+     $scope.chat_result.concat(result.update_message);
+     
+     if(result.update_message.length >0)
+     {
+      for (var i=0; i<result.update_message.length; i++) {
+        //console.log(result.update_message[i])
+        $scope.chat_result.push({status:result.update_message[i].status,msg:result.update_message[i].msg,user_image:result.update_message[i].user_image})
+      }
+     }
+     console.log($scope.chat_result)
+   // $scope.chat_result.push({status:1,msg:msg})
 	  $scope.msg='';
-	  $scope.last_id = result.last_chat_id;
-	 $ionicScrollDelegate.scrollBottom();
+    $scope.last_id = result.last_chat_id;
+    objDiv = document.getElementById("sw_msg");
+    //alert('hi')
+objDiv.scrollTop = objDiv.scrollHeight+50;
+    //console.log($scope.last_id)
+	// $ionicScrollDelegate.scrollBottom();
 			//console.log(result);
 		  }
           else { 
               $scope.auctionlist = "";
             }
-        }, function(err) {
+        }, function(err) {   $ionicLoading.hide(); 
             console.log(err);
         });
 		 
 	   }
        }
 	
-  }, 10000);
+  }, 5000);
 
 //end message section
 
@@ -2032,7 +2252,79 @@ $ionicPlatform.registerBackButtonAction(function (event) {
         }
   }, 100);
 
-
+  $scope.showFeedbackPopup = function(fav) {
+    //console.log(fav);
+    $scope.feedbackRatingsObject = {
+    iconOn: 'ion-ios-star', //Optional
+    iconOff: 'ion-ios-star-outline', //Optional
+    iconOnColor: 'rgb(200, 200, 100)', //Optional
+    iconOffColor: 'rgb(200, 100, 100)', //Optional
+    rating: fav.rating, //Optional
+    minRating: 0, //Optional
+    maxRating:5,
+    readOnly: false, //Optional
+    callback: function(rating,index) { //Mandatory
+    $scope.feedBackPopData.rating = rating;
+    }
+    };
+    $scope.feedBackPopData = fav;
+    $scope.data = {}
+    
+    // Custom popup
+    var myPopup = $ionicPopup.show({
+                                   template: '<input type = "text" ng-model = "feedBackPopData.feedback"><ionic-ratings1  ratingsobj="feedbackRatingsObject" index="0"></ionic-ratings1>',
+                                   title: 'Feedback',
+                                   subTitle: 'Please enter your feedback',
+                                   scope: $scope,
+                                   
+                                   buttons: [
+                                             { text: 'Cancel' }, {
+                                             text: '<b>Save</b>',
+                                             type: 'button-positive',
+                                             onTap: function(e) {
+                                             
+                                             if (!$scope.feedBackPopData.feedback || !$scope.feedBackPopData.rating) {
+                                             console.log("No data",$scope.feedBackPopData);
+                                             e.preventDefault();
+                                             } else {
+                                             console.log("data",$scope.feedBackPopData);
+                                             return $scope.feedBackPopData;
+                                             }
+                                             }
+                                             }
+                                             ]
+                                   });
+    
+    myPopup.then(function(res) {
+                 if(res)
+                 {
+                 var data = {product_id:res.product_id,user_id:$scope.sessionuserInfo.accessId,message:res.feedback,ratting:res.rating};
+                 AuthService.saveFeedback(data).then(function(d){
+                                                     console.log(d);
+                                                 })
+                 }
+                 
+                 });
+    };
+    $scope.setDetailsCondition = function(condition){
+      if(condition)
+      {
+      $scope.ratingsObject3 = {
+        //template:'<div class="text-center ionic_ratings"><span class="icon {{iconOff}} ionic_rating_icon_off" ng-style="iconOffColor" ng-click="ratingsClicked(1)" ng-if="rating < 1" ng-class="{\'read_only\':(readOnly)}"></span><span class="icon {{iconOn}} ionic_rating_icon_on" ng-style="iconOnColor" ng-click="ratingsUnClicked(1)" ng-if="rating > 0" ng-class="{\'read_only\':(readOnly)}"></span><span class="icon {{iconOff}} ionic_rating_icon_off" ng-style="iconOffColor" ng-click="ratingsClicked(2)" ng-if="rating < 2" ng-class="{\'read_only\':(readOnly)}"></span><span class="icon {{iconOn}} ionic_rating_icon_on" ng-style="iconOnColor" ng-click="ratingsUnClicked(2)" ng-if="rating > 1" ng-class="{\'read_only\':(readOnly)}"></span><span class="icon {{iconOff}} ionic_rating_icon_off" ng-style="iconOffColor" ng-click="ratingsClicked(3)" ng-if="rating < 3" ng-class="{\'read_only\':(readOnly)}"></span><span class="icon {{iconOn}} ionic_rating_icon_on" ng-style="iconOnColor" ng-click="ratingsUnClicked(3)" ng-if="rating > 2" ng-class="{\'read_only\':(readOnly)}"></span><span class="icon {{iconOff}} ionic_rating_icon_off" ng-style="iconOffColor" ng-click="ratingsClicked(4)" ng-if="rating < 4" ng-class="{\'read_only\':(readOnly)}"></span><span class="icon {{iconOn}} ionic_rating_icon_on" ng-style="iconOnColor" ng-click="ratingsUnClicked(4)" ng-if="rating > 3" ng-class="{\'read_only\':(readOnly)}"></span><span class="icon {{iconOff}} ionic_rating_icon_off" ng-style="iconOffColor" ng-click="ratingsClicked(5)" ng-if="rating < 5" ng-class="{\'read_only\':(readOnly)}"></span><span class="icon {{iconOn}} ionic_rating_icon_on" ng-style="iconOnColor" ng-click="ratingsUnClicked(5)" ng-if="rating > 4" ng-class="{\'read_only\':(readOnly)}"></span><span class="icon {{iconOff}} ionic_rating_icon_off" ng-style="iconOffColor" ng-click="ratingsClicked(6)" ng-if="rating < 6" ng-class="{\'read_only\':(readOnly)}"></span><span class="icon {{iconOn}} ionic_rating_icon_on" ng-style="iconOnColor" ng-click="ratingsUnClicked(6)" ng-if="rating > 5" ng-class="{\'read_only\':(readOnly)}"></span><span class="icon {{iconOff}} ionic_rating_icon_off" ng-style="iconOffColor" ng-click="ratingsClicked(7)" ng-if="rating < 7" ng-class="{\'read_only\':(readOnly)}"></span><span class="icon {{iconOn}} ionic_rating_icon_on" ng-style="iconOnColor" ng-click="ratingsUnClicked(7)" ng-if="rating > 6" ng-class="{\'read_only\':(readOnly)}"></span><span class="icon {{iconOff}} ionic_rating_icon_off" ng-style="iconOffColor" ng-click="ratingsClicked(8)" ng-if="rating < 8" ng-class="{\'read_only\':(readOnly)}"></span><span class="icon {{iconOn}} ionic_rating_icon_on" ng-style="iconOnColor" ng-click="ratingsUnClicked(8)" ng-if="rating > 7" ng-class="{\'read_only\':(readOnly)}"></span><span class="icon {{iconOff}} ionic_rating_icon_off" ng-style="iconOffColor" ng-click="ratingsClicked(9)" ng-if="rating < 9" ng-class="{\'read_only\':(readOnly)}"></span><span class="icon {{iconOn}} ionic_rating_icon_on" ng-style="iconOnColor" ng-click="ratingsUnClicked(9)" ng-if="rating > 8" ng-class="{\'read_only\':(readOnly)}"></span><span class="icon {{iconOff}} ionic_rating_icon_off" ng-style="iconOffColor" ng-click="ratingsClicked(10)" ng-if="rating < 10" ng-class="{\'read_only\':(readOnly)}"></span><span class="icon {{iconOn}} ionic_rating_icon_on" ng-style="iconOnColor" ng-click="ratingsUnClicked(10)" ng-if="rating > 9" ng-class="{\'read_only\':(readOnly)}"></span></div>',
+         iconOn : 'ion-ios-circle-filled',
+         iconOff : 'ion-ios-circle-outline',
+         iconOnColor: '#e65b95',
+         iconOffColor:  'rgb(200, 100, 100)',
+         rating:condition,
+         minRating:0,
+         max:10,
+         readOnly:true,
+         callback: function(rating) {
+           $scope.ratingsCallback(rating);
+         }
+       };
+     }
+    }
 //end class	
 });
 

@@ -1,0 +1,243 @@
+<ion-view view-title="Intro">
+
+
+
+  <ion-content class="padding-top"style="background: #fff;" >
+<!--	<ion-slide-box on-slide-changed="slideHasChanged($index)">
+	  <ion-slide>
+	   <div class="home_slide">
+	   	<img src="img/slider.png" alt="" />
+	   	<div class="home_slide-text">
+	   	<p> Buy & Sell products 	   	
+		through our app 
+		</p>
+		<button class="button button-small button-royal" ng-click="goSigninup()">Start now</button>
+	   	</div>
+	   	
+	   	</div>
+	  </ion-slide>
+
+	</ion-slide-box>-->
+	
+	<div class="row home-body-area" ng-init="product_favourite()">
+		<div class="product_card" style="width:100%">
+
+		
+		  	<div class="item" ng-if="product" ng-repeat="productes in product">
+		  		<div class="home_product_img" ng-click="go_product_details(productes.product_id)">
+		  			<img ng-src="{{productes.product_image}}" alt="" style="height: 131px;width:100%;" class="ion-thumbnail" />
+		  		</div>
+		    	<div class="grey_home_part" style="min-height: 52px !important;">
+                            <p>{{productes.product_name}}   <span style="float:right;">{{productes.product_amount}}</span> </p>
+		    		<small ng-if="productes.status != '1'" ng-click="product_accept(productes.send_request_id)">Accept</small>
+                                <small ng-if="productes.status != '2'" ng-click="product_decline(productes.send_request_id)">Decline</small>
+                                <small ng-click="getchat(productes.product_id,productes.user_id)">Chat</small>
+		    	</div>
+		    	<div class="home_white_part">
+		    		<div class="row">
+		    			<div class="col-25">
+		    				<div class="avatar_image">
+		    					<img src="{{productes.user_image}}">
+		    				</div>
+		    			</div>
+		    			<div class="col-75">
+		    				<div class="detail_home">
+		    					<h2>{{productes.user_name}}</h2>
+				                <!--<p>Watches</p>-->
+		    				</div>
+		    			</div>
+		    		</div>
+		    	</div>
+		    	
+			  </div>
+			  <div ng-if="!product">
+				  <span>No request available</span>
+
+			  </div>
+             <!-- <div class="item">
+		  		<div class="home_product_img">
+		  			<img src="../img/h2.png" alt="" />
+		  		</div>
+		    	<div class="grey_home_part">
+		    		<p>Gloves Chronograph watch, Women Handwear</p>
+		    		<small>From Shoes</small>
+		    	</div>
+		    	<div class="home_white_part">
+		    		<div class="row">
+		    			<div class="col-25">
+		    				<div class="avatar_image">
+		    					<img src="../img/icon.png">
+		    				</div>
+		    			</div>
+		    			<div class="col-75">
+		    				<div class="detail_home">
+		    					<h2>Marty McFly</h2>
+				                <p>Watches</p>
+		    				</div>
+		    			</div>
+		    		</div>
+		    	</div>
+		  	</div> -->
+		  	
+		 <!--  <div class="item">
+		  		<div class="home_product_img">
+		  			<img src="../img/h3.png" alt="" />
+		  		</div>
+		    	<div class="grey_home_part">
+		    		<p>Gloves Chronograph watch, Women Handwear</p>
+		    		<small>From Shoes</small>
+		    	</div>
+		    	<div class="home_white_part">
+		    		<div class="row">
+		    			<div class="col-25">
+		    				<div class="avatar_image">
+		    					<img src="../img/icon.png">
+		    				</div>
+		    			</div>
+		    			<div class="col-75">
+		    				<div class="detail_home">
+		    					<h2>Marty McFly</h2>
+				                <p>Watches</p>
+		    				</div>
+		    			</div>
+		    		</div>
+		    	</div>
+		  	</div> -->
+             <!-- <div class="item">
+		  		<div class="home_product_img">
+		  			<img src="../img/h4.png" alt="" />
+		  		</div>
+		    	<div class="grey_home_part">
+		    		<p>Gloves Chronograph watch, Women Handwear</p>
+		    		<small>From Shoes</small>
+		    	</div>
+		    	<div class="home_white_part">
+		    		<div class="row">
+		    			<div class="col-25">
+		    				<div class="avatar_image">
+		    					<img src="../img/icon.png">
+		    				</div>
+		    			</div>
+		    			<div class="col-75">
+		    				<div class="detail_home">
+		    					<h2>Marty McFly</h2>
+				                <p>Watches</p>
+		    				</div>
+		    			</div>
+		    		</div>
+		    	</div>
+		  	</div>
+		  	
+		  	<div class="item">
+		  		<div class="home_product_img">
+		  			<img src="../img/h1.png" alt="" />
+		  		</div>
+		    	<div class="grey_home_part">
+		    		<p>Gloves Chronograph watch, Women Handwear</p>
+		    		<small>From Shoes</small>
+		    	</div>
+		    	<div class="home_white_part">
+		    		<div class="row">
+		    			<div class="col-25">
+		    				<div class="avatar_image">
+		    					<img src="../img/icon.png">
+		    				</div>
+		    			</div>
+		    			<div class="col-75">
+		    				<div class="detail_home">
+		    					<h2>Marty McFly</h2>
+				                <p>Watches</p>
+		    				</div>
+		    			</div>
+		    		</div>
+		    	</div>
+		  	</div>
+             <div class="item">
+		  		<div class="home_product_img">
+		  			<img src="../img/h2.png" alt="" />
+		  		</div>
+		    	<div class="grey_home_part">
+		    		<p>Gloves Chronograph watch, Women Handwear</p>
+		    		<small>From Shoes</small>
+		    	</div>
+		    	<div class="home_white_part">
+		    		<div class="row">
+		    			<div class="col-25">
+		    				<div class="avatar_image">
+		    					<img src="../img/icon.png">
+		    				</div>
+		    			</div>
+		    			<div class="col-75">
+		    				<div class="detail_home">
+		    					<h2>Marty McFly</h2>
+				                <p>Watches</p>
+		    				</div>
+		    			</div>
+		    		</div>
+		    	</div>
+		  	</div> -->
+		  	
+		  </div>	
+	</div>
+	
+<div class="filter-area" ng-show="showdiv">
+    
+			<div class="list card people-name-area" style="margin: -104px 10px;">				
+
+				    <div class="item item-avatar" href="#">
+				      <img src="{{details_product.part_product_image}}">
+				      <h2>{{details_product.product_n}}</h2>
+				      <i class="icon ion-android-close" ng-click="close_chat()"></i>
+				    </div>
+
+				<div class="chat_area_only" id="sw_msg">
+                                    <div ng-repeat="chts in chat_result">
+					<div ng-if="chts.status == 2" class="item item-avatar btm-brdr chat-lt-padding" href="#">
+				      <img class="img-chat" ng-src="{{chts.user_image}}">
+				      <div class="chat"> <div class="chat-arw"></div> <p>{{chts.msg}}</p>  </div>
+				    </div>
+					
+					<div ng-if="chts.status == 1" class="item item-avatar btm-brdr chat-lt-padding-0" href="#">				      
+				      <div class="chat-rt"> <p>{{chts.msg}}</p> <div class="chat-arw-rt"></div> </div>
+				      <img class="img-chat" ng-src="{{chts.user_image}}" style="float: right;margin-top: -39px;">
+				    </div>
+                                        </div>
+				</div>
+			
+				<div class="chat-type-part">
+                                    
+					<div class="item  row">
+					<div class="col col-80"><textarea placeholder="Type Message" required="" ng-model="msg4" id="msgs1" rows="3"  style=""></textarea></div>
+					<div class="col col-20">
+                	<button class="button button-small button-calm btnn_chat chat-send" style="" ng-disabled="isDisabledchat" ng-click="addmessage_rq(msg4,details_product.product_id,details_product.user_id,last_id)" >Send</button>
+                </div>
+   
+  
+  </div>
+				</div>
+			</div>
+		</div>
+  </ion-content>
+  <!--<div class="tabs tabs-icon-top footer-icon-bar">
+		<a class="tab-item" style="color: #888888;"><i class="icon ion-android-notifications"></i> Notification</a>
+		<a class="tab-item" style="color: #888888;"><i class="icon ion-heart"></i> Favourite</a>
+		<a class="tab-item" style="color: #888888;"><i class="icon ion-ios-cart"></i> Cart</a>
+	</div>-->
+	 
+</ion-view>
+
+
+
+
+<style>
+	
+</style>
+
+<script>
+    $(document).ready(function(){
+    $("button").click(function(){ 
+        $("#msgs1").val('');
+    });
+    
+});
+    </script>

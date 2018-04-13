@@ -7,15 +7,17 @@
 	
 	<div class="row home-body-area" ng-init="style_list()">
 		<div class="product_card" style="width:100%">
-
-		
+<p style="text-align: justify;padding-top: 10px;">Welcome to Ms Barter. We help you ladies get the right swop deal for your pre-loved and brand new clothes. Find a good match for swopping your clothes and give your closet an entire new look without running out of your pocket. It’s simple, just find someone close to your location, matches your desired style and size and then do the swop! You can explore a range of styles and try on something that you always wanted to. Stop buying and flooding your wardrobe, say yes to SWOPPING! Swopping is the new way to shop. 
+</p>
+	<span style="margin-left: 30%;">#aDifferentWayToShop</span>
+		<h2 style="text-align: center;">STYLE</h2>
 		  	<div class="item" ng-repeat="cat in style" >
 		  		<div class="home_product_img" ng-click="go_search({{cat.id}},'S')">
 		  			<img ng-src="{{cat.image}}" alt="" class="ion-thumbnail" />
 		  		</div>
 		    	<div class="grey_home_part">
 <!--		    		<p>{{cat.name}}</p>-->
-					<small>{{cat.name}}</small>
+					<small style="font-size: 16px;">{{cat.name}}</small>
 					<p>{{cat.description}}</p>
 		    	</div>
 <!--		    	<div class="home_white_part">

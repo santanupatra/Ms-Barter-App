@@ -1,0 +1,164 @@
+<ion-view view-title="Intro">
+
+  <ion-content class="padding-top" style="background: #fff;" >
+	
+   <div class="row">
+		<div class="product_card search_listings" ng-init="getchatlist()">
+		
+		  	<div class="item" ng-repeat="productes in chat_list" ng-if="productes.product_name" >
+		  		<div class="search_product_img" ng-click="getchat(productes.product_id,productes.user_id)">
+		  			<img src="{{productes.user_image}}" alt="" />
+		  		</div>
+		  		<div class="search_details_body" ng-click="getchat(productes.product_id,productes.user_id)">
+		    		<h3>{{productes.product_name}}</h3>
+		    		
+		    	</div>
+<!--                            <div class="search_details_right">
+					<div class="btn-edit" ng-click="goproductedit(productes.product_id)"><i class="icon ion-edit"></i></div>
+					<div class="btn-edit" ng-click="myproduct_delete(productes.product_id)"><i class="icon ion-android-delete"></i></div>
+				</div>-->
+		  	</div>
+		  	<div ng-if="no_chat_list && !getchatlist">
+		  	<p>{{no_chat_list}}</p>
+		  	<div>
+
+           <!--  <div class="item">
+		  		<div class="search_product_img">
+		  			<img src="../img/s2.png" alt="" />
+		  		</div>
+		  		<div class="search_details_body">
+		    		<h3>Product Name</h3>
+		    		<p class="search_p_name">
+		    		<span class="name_span small_part">Buke, Grey, Whitw</span>
+		    		<p class="price_product_list">$ 129.99</p>
+		    		<span class="arrow_span up_span"><i class="ion-chevron-right"></i></span>
+		    		</p>
+		    	</div>
+		  	</div>
+		  	
+		  	<div class="item">
+		  		<div class="search_product_img">
+		  			<img src="../img/s3.png" alt="" />
+		  		</div>
+		  		<div class="search_details_body">
+		    		<h3>Product Name</h3>
+		    		<p class="search_p_name">
+		    		<span class="name_span small_part">Buke, Grey, Whitw</span>
+		    		<p class="price_product_list">$ 129.99</p>
+		    		<span class="arrow_span up_span"><i class="ion-chevron-right"></i></span>
+		    		</p>
+		    	</div>
+		  	</div>
+		  	
+		  	<div class="item">
+		  		<div class="search_product_img">
+		  			<img src="../img/s4.png" alt="" />
+		  		</div>
+		  		<div class="search_details_body">
+		    		<h3>Product Name</h3>
+		    		<p class="search_p_name">
+		    		<span class="name_span small_part">Buke, Grey, Whitw</span>
+		    		<p class="price_product_list">$ 129.99</p>
+		    		<span class="arrow_span up_span"><i class="ion-chevron-right"></i></span>
+		    		</p>
+		    	</div>
+		  	</div>
+		  	
+ 		  	<div class="item">
+		  		<div class="search_product_img">
+		  			<img src="../img/s1.png" alt="" />
+		  		</div>
+		  		<div class="search_details_body">
+		    		<h3>Product Name</h3>
+		    		<p class="search_p_name">
+		    		<span class="name_span small_part">Buke, Grey, Whitw</span>
+		    		<p class="price_product_list">$ 129.99</p>
+		    		<span class="arrow_span up_span"><i class="ion-chevron-right"></i></span>
+		    		</p>
+		    	</div>
+		  	</div>
+		  	
+		  	<div class="item">
+		  		<div class="search_product_img">
+		  			<img src="../img/s2.png" alt="" />
+		  		</div>
+		  		<div class="search_details_body">
+		    		<h3>Product Name</h3>
+		    		<p class="search_p_name">
+		    		<span class="name_span small_part">Buke, Grey, Whitw</span>
+		    		<p class="price_product_list">$ 129.99</p>
+		    		<span class="arrow_span up_span"><i class="ion-chevron-right"></i></span>
+		    		</p>
+		    	</div>
+		  	</div>
+		  	
+ 		  	<div class="item">
+		  		<div class="search_product_img">
+		  			<img src="../img/s3.png" alt="" />
+		  		</div>
+		  		<div class="search_details_body">
+		    		<h3>Product Name</h3>
+		    		<p class="search_p_name">
+		    		<span class="name_span small_part">Buke, Grey, Whitw</span>
+		    		<p class="price_product_list">$ 129.99</p>
+		    		<span class="arrow_span up_span"><i class="ion-chevron-right"></i></span>
+		    		</p>
+		    	</div>
+		  	</div> -->
+		  	
+		  	
+		  </div>	
+	</div>
+	<div class="filter-area" ng-show="showdiv" style="padding-top: 10px;">
+    
+			<div class="list card people-name-area" >				
+
+				    <div class="item item-avatar" href="#">
+				      <img src="{{details_product.part_product_image}}">
+				      <h2>{{details_product.product_n}}</h2>
+				      <i class="icon ion-android-close" ng-click="close_chat()"></i>
+				    </div>
+
+				<div class="chat_area_only" id="sw_msg">
+                                    <div ng-repeat="chts in chat_result">
+					<div ng-if="chts.status == 2" class="item item-avatar btm-brdr chat-lt-padding" href="#">
+				      <img class="img-chat" ng-src="{{chts.user_image}}">
+				      <div class="chat"> <div class="chat-arw"></div> <p>{{chts.msg}}</p>  </div>
+				    </div>
+					
+					<div ng-if="chts.status == 1" class="item item-avatar btm-brdr chat-lt-padding-0" href="#">				      
+				      <div class="chat-rt"> <p>{{chts.msg}}</p> <div class="chat-arw-rt"></div> </div>
+				      <img class="img-chat" ng-src="{{chts.user_image}}" style="float: right;margin-top: -39px;">
+				    </div>
+                                        </div>
+				</div>
+			
+				<div class="chat-type-part">
+                                    
+					<div class="item  row">
+					<div class="col col-80"><textarea placeholder="Type Message" required="" ng-model="msg4" id="msgs1" rows="3"  style=""></textarea></div>
+					<div class="col col-20">
+                	<button class="button button-small button-calm btnn_chat chat-send" style="" ng-disabled="isDisabledchat" ng-click="addmessage_rq(msg4,details_product.product_id,details_product.user_id,last_id)" >Send</button>
+                </div>
+   
+  
+  </div>
+				</div>
+			</div>
+		</div>
+
+  </ion-content>
+  <!--<div class="tabs tabs-icon-top footer-icon-bar">
+		<a class="tab-item" style="color: #888888;"><i class="icon ion-android-notifications"></i> Notification</a>
+		<a class="tab-item" style="color: #888888;"><i class="icon ion-heart"></i> Favourite</a>
+		<a class="tab-item" style="color: #888888;"><i class="icon ion-ios-cart"></i> Cart</a>
+	</div>-->
+</ion-view>
+<script>
+    $(document).ready(function(){
+    $("button").click(function(){ 
+        $("#msgs1").val('');
+    });
+    
+});
+    </script>

@@ -84,6 +84,8 @@
 	   	</div>
 	     <div class="tabs-top tabs-background-positive tabs-color-light">
 		    <div class="tabs">
+					<a class="tab-item active" href="javascript:void(0)" ng-hide="is_current"> Current </a>
+					<a class="tab-item " href="javascript:void(0)" ng-click="is_currents()" ng-hide="!is_current"> Current</a>
 		      <a class="tab-item active" href="javascript:void(0)" ng-hide="is_sold"> Past Deals </a>
                       <a class="tab-item " href="javascript:void(0)" ng-click="is_solds()" ng-hide="!is_sold"> Past Deals </a>
 		      <a class="tab-item active" href="javascript:void(0)" ng-hide="is_fav"> Favourite </a>
@@ -103,18 +105,42 @@
               <p style="text-align:center;">No favourite product available</p>      
 			    
 		</div>
-<div ng-hide="is_sold" class="list tab-text-part" ng-if="my_sold_product">
-                            <a ng-repeat="fav in my_sold_product" class="item item-thumbnail-left" href="#/product_details/{{fav,product_id}}">
+<!-- <div ng-hide="is_sold" class="list tab-text-part" ng-if="my_sold_product.length > 0">
+                            <a ng-repeat="fav in my_sold_product" class="item item-thumbnail-left" href="#/product_details/{{fav.product_id}}">
 			      <img src="{{fav.product_image}}" />
                               <p>{{fav.product_name}}</p> <p><span class="price">${{fav.product_price}}</span> </p>
 			    </a>
 			    
-		</div>
-          <div ng-hide="is_sold" class="list tab-text-part" ng-if="!my_sold_product">
-              <p style="text-align:center;">No sold product available</p>
-			    
-		</div>
-  		
+		</div>-->
+          
+		<div ng-hide="is_sold" class="list tab-text-part" ng-if="my_sold_product.length > 0">
+				<a ng-repeat="fav in my_sold_product" class="item item-thumbnail-left" >
+					<!--href="#/product_details/{{fav.product_id}}"-->
+	  <img src="{{fav.product_image}}" />
+				  <p>{{fav.product_name}}</p> <p><span class="price">${{fav.product_price}}</span> </p>
+				  <button class="button button-light" ng-click="showFeedbackPopup(fav)">Feedback</button>
+	</a>
+	
+</div>
+<div ng-hide="is_sold" class="list tab-text-part" ng-if="!my_sold_product">
+		<p style="text-align:center;">No sold product available</p>
+		  
+  </div> 
+		<div ng-hide="is_current" class="list tab-text-part" ng-if="my_current_product.length > 0">
+			<div class="item item-thumbnail-left" ng-repeat="fav in my_current_product">	
+			<a   href="#/product_details/{{fav.product_id}}">
+	  <img src="{{fav.product_image}}" />
+	</a>
+				  <p>{{fav.product_name}}</p> <p><span class="price">${{fav.product_price}}</span> </p>
+				  <button class=" button-light" style="background: #dd6cb6;" ng-click="request_reject(fav.id)">Reject</button>
+				
+				</div>
+	
+</div>
+<div ng-hide="is_current" class="list tab-text-part" ng-if="!my_current_product">
+  <p style="text-align:center;">No current product available</p>
+	
+</div>
 
 	   
 	

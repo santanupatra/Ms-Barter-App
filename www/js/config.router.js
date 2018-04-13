@@ -95,6 +95,17 @@ $stateProvider
             }
         }
     })
+    .state('menu.chat', {
+        url: 'chat',
+		resolve: loadSequence('home'),
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/chat.html',
+                controller: 'homeCtrl',
+                cache:false
+            }
+        }
+    })
     .state('menu.public_profile', {
         url: 'public_profile',
 		resolve: loadSequence('home'),
@@ -220,7 +231,26 @@ $stateProvider
             }
         }
     })
-    
+    .state('menu.requested_list', {
+        url: 'requested_list',
+		resolve: loadSequence('home'),
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/requested_list.html',
+                controller: 'homeCtrl'
+            }
+        }
+    })
+    .state('menu.favourite_list', {
+        url: 'favourite_list',
+		resolve: loadSequence('home'),
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/favourite_list.html',
+                controller: 'homeCtrl'
+            }
+        }
+    })
     
 	.state('menu.chat_list', {
         url: 'chat_list',

@@ -102,16 +102,28 @@
                     		<span ng-show="productForm.description.$error.required">Description is required</span>  
                     	</span>
                      </label>
-			 <label class="item item-input select-no-lt-pad">
-			    <!--<div class="input-label" style="color: #666;">
-			      Used/New
-			    </div>-->
+			 <!-- <label class="item item-input select-no-lt-pad">
+			    
 			   
 			     <select ng-model="product.type" name="type" required="">
 			      <option value="">Select Type</option>
 			      <option selected="" value="Used">Used</option>
 			      <option selected="" value="New">New</option>
 			    </select>
+				</label> -->
+				<label class=" new-label">
+			   
+					
+				 <input type="radio" checked="checked" name="type" ng-model="product.type" value="Used" required> Used
+				 
+			    
+				</label>
+				<label class="new-label">
+			    
+					
+				 
+				 <input type="radio" name="type" ng-model="product.type" value="New" required> New
+			     
 			  </label>
 			  <label class="">
                    		<span style="color:red;" ng-show="productForm.type.$dirty && productForm.type.$invalid">

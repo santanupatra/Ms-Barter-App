@@ -1,0 +1,129 @@
+<ion-view view-title="Customer edit" >
+    
+	<div class="bar bar-header bar-assertive">
+		<button class="button button-icon icon ion-android-arrow-back" ng-click="goBack()"></button>
+		<div class="h1 title">Chat Details</div>
+		
+	</div>
+ 	
+
+    
+    <ion-content class="grey-bg has-header has-footer chat-detail-area" style="top:44px;bottom:60px;" ng-init="chat_message()">
+            <div class="filter-area"  delegate-handle="content" ng-show="showdiv" style="padding-top: 10px;">
+    
+                    <div class="list card people-name-area" >				
+        
+                            <div class="item item-avatar" href="javascript:void(0)" ng-click="close_chat()">
+                              <img src="{{details_product.part_product_image}}">
+                              <h2>{{details_product.product_n}}</h2>
+                              <i class="icon ion-android-close" ></i>
+                            </div>
+        
+                        <div class="chat_area_only" id="sw_msg">
+                            <ion-scroll style="height:220px" delegate-handle="chatbox">
+                                            <div ng-repeat="chts in chat_result">
+                            <div ng-if="chts.status == 2" class="item item-avatar btm-brdr chat-lt-padding" href="#">
+                              <img class="img-chat" ng-src="{{chts.user_image}}">
+                              <div class="chat"> <div class="chat-arw"></div> <p>{{chts.msg}}</p>  </div>
+                            </div>
+                            
+                            <div ng-if="chts.status == 1" class="item item-avatar btm-brdr chat-lt-padding-0" href="#">				      
+                              <div class="chat-rt"> <p>{{chts.msg}}</p> <div class="chat-arw-rt"></div> </div>
+                              <img class="img-chat" ng-src="{{chts.user_image}}" style="float: right;margin-top: -39px;">
+                            </div>
+                                                </div>
+                                                <a id="theBottom"></a>
+                                            </ion-scroll>
+                                            
+                        </div>
+                    
+                        <div class="chat-type-part">
+                                            
+                            <div class="item  row">
+                            <div class="col col-80"><textarea placeholder="Type Message" required="" ng-model="msg4" id="msgs1" rows="3"  style=""></textarea></div>
+                            <div class="col col-20">
+                            <button class="button button-small button-calm btnn_chat chat-send" style="" ng-disabled="isDisabledchat" ng-click="addmessage_rq(msg4,details_product.product_id,details_product.user_id,last_id)" >Send</button>
+                        </div>
+           
+          
+          </div>
+                        </div>
+                    </div>
+                </div>    
+    </ion-content>
+    
+    <!-- <div class="lowerbar footer-tab">
+         <form style="width:100%; margin-bottom: 5px;" name="frmmsg" ng-submit="addmessage(msg,friend_id)" ng-disabled="frmmsg.$invalid" novalidate ng-cloak >
+  			<div class="row">
+  				<div class="col">
+                                      
+					  <textarea  style="line-height: 1.5; width: 100%; resize: none; border: 1px solid #e7e7e7" class="comment_text" placeholder="Type a message" ng-model="msg" ng-change="messageUpdated()"></textarea>
+                                        
+  				</div>
+  				<div class="col col-10">
+  					<span emoji-picker="msg"
+      					placement="right" 
+					      title="Emoji"
+					      recent-limit="10"
+					      output-format="unicode"
+					      on-change-func="messageUpdated">
+      	
+      				</span>
+  				</div>
+                            <input type="hidden" ng-model="friend_id" id="fnd_id">
+                            <input type="hidden" ng-model="last_id" id="last_id">
+  				<div class="col col-10 send">
+  					<button style=" text-align:center; background:transparent!important;display:block; padding:0; line-height:40px; height:40px; box-shadow:none; font-size: 24px; min-width: auto; padding-left: 5px; padding-right: 5px" class="button button-calm"><i class="icon ion-android-send"></i></button>
+  				</div>
+  			</div>
+</form>
+	</div> -->
+</ion-view>
+
+<style>
+.lowerbar{
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -moz-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-direction: normal;
+    -webkit-box-orient: horizontal;
+    -webkit-flex-direction: horizontal;
+    -moz-flex-direction: horizontal;
+    -ms-flex-direction: horizontal;
+    flex-direction: horizontal;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    -moz-justify-content: center;
+    justify-content: center;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    border-color: #b2b2b2;
+    background-color: #f8f8f8;
+    background-image: linear-gradient(0deg, #b2b2b2, #b2b2b2 50%, transparent 50%);
+    color: #444;
+    position: absolute;
+    bottom: 0;
+    z-index: 5;
+    width: 100%;
+    height: 49px;
+    background-size: 0;
+    line-height: 49px;
+    border-bottom: none;
+    background-position: top;
+    background-size: 100% 1px;
+    background-repeat: no-repeat;
+}
+.item{background: none;padding: 5px 10px;}
+.popover {
+    right: 53px !important;
+left: auto !important;
+    opacity: 5 !important;
+    bottom: 52px!important;
+    top: auto!important;
+}
+
+</style>

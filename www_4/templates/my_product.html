@@ -1,0 +1,123 @@
+<ion-view view-title="Intro">
+
+  <ion-content class="padding-top" style="background: #fff;" >
+	
+   <div class="row">
+		<div class="product_card search_listings" ng-init="myproduct_list()">
+		
+		  	<div class="item" ng-if="my_product" ng-repeat="productes in my_product" >
+		  		<div class="search_product_img" ng-click="go_product_details(productes.product_id)">
+		  			<img src="{{productes.product_image}}" alt="" />
+		  		</div>
+		  		<div class="search_details_body" ng-click="go_product_details(productes.product_id)">
+		    		<h3>{{productes.product_name}}</h3>
+		    		<p class="search_p_name">
+		    		<span class="name_span small_part">{{productes.type}}</span>
+		    		<p class="price_product_list">$ {{productes.product_amount}}</p>
+		    		<!--<span class="arrow_span up_span"><i class="ion-chevron-right"></i></span>-->
+		    		</p>
+		    	</div>
+                            <div class="search_details_right" ng-if="sessionuserInfo.accessId == productes.user_id">
+					<div class="btn-edit" ng-click="goproductedit(productes.product_id)"><i class="icon ion-edit"></i></div>
+					<div class="btn-edit" ng-click="myproduct_delete(productes.product_id)"><i class="icon ion-android-delete"></i></div>
+				</div>
+		  	</div>
+		<div ng-if="!my_product && no_my_product">
+			<span>No product added</span>
+		</div>
+           <!--  <div class="item">
+		  		<div class="search_product_img">
+		  			<img src="../img/s2.png" alt="" />
+		  		</div>
+		  		<div class="search_details_body">
+		    		<h3>Product Name</h3>
+		    		<p class="search_p_name">
+		    		<span class="name_span small_part">Buke, Grey, Whitw</span>
+		    		<p class="price_product_list">$ 129.99</p>
+		    		<span class="arrow_span up_span"><i class="ion-chevron-right"></i></span>
+		    		</p>
+		    	</div>
+		  	</div>
+		  	
+		  	<div class="item">
+		  		<div class="search_product_img">
+		  			<img src="../img/s3.png" alt="" />
+		  		</div>
+		  		<div class="search_details_body">
+		    		<h3>Product Name</h3>
+		    		<p class="search_p_name">
+		    		<span class="name_span small_part">Buke, Grey, Whitw</span>
+		    		<p class="price_product_list">$ 129.99</p>
+		    		<span class="arrow_span up_span"><i class="ion-chevron-right"></i></span>
+		    		</p>
+		    	</div>
+		  	</div>
+		  	
+		  	<div class="item">
+		  		<div class="search_product_img">
+		  			<img src="../img/s4.png" alt="" />
+		  		</div>
+		  		<div class="search_details_body">
+		    		<h3>Product Name</h3>
+		    		<p class="search_p_name">
+		    		<span class="name_span small_part">Buke, Grey, Whitw</span>
+		    		<p class="price_product_list">$ 129.99</p>
+		    		<span class="arrow_span up_span"><i class="ion-chevron-right"></i></span>
+		    		</p>
+		    	</div>
+		  	</div>
+		  	
+ 		  	<div class="item">
+		  		<div class="search_product_img">
+		  			<img src="../img/s1.png" alt="" />
+		  		</div>
+		  		<div class="search_details_body">
+		    		<h3>Product Name</h3>
+		    		<p class="search_p_name">
+		    		<span class="name_span small_part">Buke, Grey, Whitw</span>
+		    		<p class="price_product_list">$ 129.99</p>
+		    		<span class="arrow_span up_span"><i class="ion-chevron-right"></i></span>
+		    		</p>
+		    	</div>
+		  	</div>
+		  	
+		  	<div class="item">
+		  		<div class="search_product_img">
+		  			<img src="../img/s2.png" alt="" />
+		  		</div>
+		  		<div class="search_details_body">
+		    		<h3>Product Name</h3>
+		    		<p class="search_p_name">
+		    		<span class="name_span small_part">Buke, Grey, Whitw</span>
+		    		<p class="price_product_list">$ 129.99</p>
+		    		<span class="arrow_span up_span"><i class="ion-chevron-right"></i></span>
+		    		</p>
+		    	</div>
+		  	</div>
+		  	
+ 		  	<div class="item">
+		  		<div class="search_product_img">
+		  			<img src="../img/s3.png" alt="" />
+		  		</div>
+		  		<div class="search_details_body">
+		    		<h3>Product Name</h3>
+		    		<p class="search_p_name">
+		    		<span class="name_span small_part">Buke, Grey, Whitw</span>
+		    		<p class="price_product_list">$ 129.99</p>
+		    		<span class="arrow_span up_span"><i class="ion-chevron-right"></i></span>
+		    		</p>
+		    	</div>
+		  	</div> -->
+		  	
+		  	
+		  </div>	
+	</div>
+	
+
+  </ion-content>
+  <!--<div class="tabs tabs-icon-top footer-icon-bar">
+		<a class="tab-item" style="color: #888888;"><i class="icon ion-android-notifications"></i> Notification</a>
+		<a class="tab-item" style="color: #888888;"><i class="icon ion-heart"></i> Favourite</a>
+		<a class="tab-item" style="color: #888888;"><i class="icon ion-ios-cart"></i> Cart</a>
+	</div>-->
+</ion-view>

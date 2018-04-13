@@ -838,7 +838,21 @@ var forget_pass = function(email){
         });
 };
 
-
+var cancel_request = function(id){ 
+      
+  var encodedString ='id=' + encodeURIComponent(id);
+            
+ var req = {
+           method: 'POST',
+           url: $rootScope.serviceurl+"users/my_current_sentproduct_delapi",
+     data: encodedString,
+           headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+       };
+       return $http(req).then(function(res){ //console.log(res);  alert('res');
+          $ionicLoading.hide();  
+          return res.data; 
+       });
+};
 
 var twitterlogin = function(data){
 
@@ -944,7 +958,19 @@ if(response.data.ACK != 0) {
    
 
 };
-
+var saveFeedback = function(data)
+         {
+                 var req = {
+                 method: 'POST',
+                 url: $rootScope.serviceurl+"users/save_rating",
+                 data: $httpParamSerializer(data),
+                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                 };
+                 return $http(req).then(function(res){ //console.log(res);  alert('res');
+                                $ionicLoading.hide();
+                                return res.data;
+                                });
+         }
 		
   return {
 		login : login,
@@ -987,6 +1013,8 @@ if(response.data.ACK != 0) {
     subcategory_list1:subcategory_list1,
      cms:cms,
      forget_pass:forget_pass,
+     cancel_request:cancel_request,
+     saveFeedback:saveFeedback,
     //cms:cms;
     
     

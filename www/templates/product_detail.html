@@ -37,10 +37,12 @@
   		    		<p><i class="icon ion-android-favorite-outline"></i> <span class="arilaku">{{products.fav_count}} Favourite</span> </p>
   		    		<!--<p><i class="icon ion-ios-list-outline"></i> in <span class="arilaku">Top</span> </p>-->
   		    	</div>
-  		    	<div class="item">
-  		    		<p><i class="ion-ios-pricetag-outline"></i> {{products.product_price}} </p>
-  		    		<p>{{products.category_name}} </p>
-  		    	</div>
+  		    	<div class="item" >
+					<p><i class="ion-ios-pricetag-outline"></i> {{products.product_price}} </p>
+					<p>{{products.category_name}}, {{products.type}} </p>
+			<p ng-init="setDetailsCondition(products.item_condition)" ng-if="products.item_condition">
+			  <ionic-ratings ratingsobj="ratingsObject3" index="0" ></ionic-ratings></p>
+				</div>
 				<div class="item">
 <!--                                    <ionic-ratings ratingsobj="ratingsObject1" index="index" ng-model="product.item_conditions"></ionic-ratings>-->
 <!--						<div class="brand-area">
@@ -63,7 +65,7 @@
 		        </div>
 		        <div class="item" >
                             
-		        	<p> <i class="icon ion-ios-information-outline"></i>{{products.product_description}} </p>
+		        	<p ng-bind-html="products.product_description"> <i class="icon ion-ios-information-outline"></i> </p>
 		        </div>
 				<!--<div class="item">
 				<h3 class="fastrack">Fastrack Wrap  Sunglasses</h3>
@@ -111,14 +113,14 @@
         </div>
         </form>
                </div>-->
-<div class="filter-area" ng-show="showdiv">
+<!--<div class="filter-area" ng-show="showdiv">
     
 			<div class="list card people-name-area" >				
 
-				    <div class="item item-avatar" href="#">
+				    <div class="item item-avatar" href="javascript:void(0)" ng-click="close_chat()">
 				      <img src="{{details_product.part_product_image}}">
 				      <h2>{{details_product.product_n}}</h2>
-				      <i class="icon ion-android-close" ng-click="close_chat()"></i>
+				      <i class="icon ion-android-close" ></i>
 				    </div>
 
 				<div class="chat_area_only" id="sw_msg">
@@ -132,7 +134,11 @@
 				      <div class="chat-rt"> <p>{{chts.msg}}</p> <div class="chat-arw-rt"></div> </div>
 				      <img class="img-chat" ng-src="{{chts.user_image}}" style="float: right;margin-top: -39px;">
 				    </div>
-                                        </div>
+										</div>
+										<div><div  class="item item-avatar btm-brdr chat-lt-padding-0" href="#">				      
+												<div class="chat-rt"> <p style="background:none;">&nbsp;</p> <div class="chat-arw-rt"></div> </div>
+												
+											  </div>
 				</div>
 			
 				<div class="chat-type-part">
@@ -147,9 +153,54 @@
   </div>
 				</div>
 			</div>
-		</div>
+		</div>-->
            <!--pop end--> 
-
+		   <div class="filter-area"  delegate-handle="content" ng-show="showdiv" style="padding-top: 10px;">
+    
+				<div class="list card people-name-area" >				
+	
+						<div class="item item-avatar" href="javascript:void(0)" ng-click="close_chat()">
+						  <img src="{{details_product.part_product_image}}">
+						  <h2>{{details_product.product_n}}</h2>
+						  <i class="icon ion-android-close" ></i>
+						</div>
+	
+					<div class="chat_area_only" id="sw_msg">
+						<!-- <ion-scroll style="height:220px" delegate-handle="chatbox"> -->
+										<div ng-repeat="chts in chat_result">
+						<div ng-if="chts.status == 2" class="item item-avatar btm-brdr chat-lt-padding" href="#">
+						  <img class="img-chat" ng-src="{{chts.user_image}}">
+						  <div class="chat"> <div class="chat-arw"></div> <p>{{chts.msg}}</p>  </div>
+						</div>
+						
+						<div ng-if="chts.status == 1" class="item item-avatar btm-brdr chat-lt-padding-0" href="#">				      
+						  <div class="chat-rt"> <p>{{chts.msg}}</p> <div class="chat-arw-rt"></div> </div>
+						  <img class="img-chat" ng-src="{{chts.user_image}}" style="float: right;margin-top: -39px;">
+						</div>
+											</div>
+											<div><div  class="item item-avatar btm-brdr chat-lt-padding-0" href="#">				      
+													<div class="chat-rt"> <p style="background:none;">&nbsp;</p> <div class="chat-arw-rt"></div> </div>
+													
+												  </div>
+																	  </div>
+											<a id="theBottom"></a>
+										<!-- </ion-scroll> -->
+										
+					</div>
+				
+					<div class="chat-type-part">
+										
+						<div class="item  row">
+						<div class="col col-80"><textarea placeholder="Type Message" required="" ng-model="msg4" id="msgs1" rows="3"  style=""></textarea></div>
+						<div class="col col-20">
+						<button class="button button-small button-calm btnn_chat chat-send" style="" ng-disabled="isDisabledchat" ng-click="addmessage_rq(msg4,details_product.product_id,details_product.user_id,last_id)" >Send</button>
+					</div>
+	   
+	  
+	  </div>
+					</div>
+				</div>
+			</div>
   </ion-content>
 <!--  <div class="tabs row footer-icon-bar" style="margin: 0; padding:0;">
 		<div class="make-offer"> <img src="../img/hand-shake.png" /> <p>Make & Offer</p> </div>

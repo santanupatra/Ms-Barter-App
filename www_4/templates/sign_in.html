@@ -1,0 +1,67 @@
+<ion-view view-title="Intro">
+  <ion-content class="login-wrapper padding slide_height">
+	<div class="animated slideInRight">
+		<div class="login_holder">
+			<img ng-src="img/login-logo.png" alt="" class="login_logo"/>
+			<div class="list padding-right padding-left">
+			
+			<div class="row">
+				 <div class="col" ng-click="facebookSignIn()">
+				 	<div class="login-fb"> <img src="img/login-fb.png" /> </div>
+				 </div>
+				 <!-- <div class="col" ng-click="twitterSignIn()">
+				 	<div class="login-tweet"> <img src="img/login-tweet.png" /> </div>
+				 </div> -->
+  			</div>
+  			<div class="row responsive-sm">
+  				<div class="col">
+  					<div class="or">
+  						<img src="img/or.png" />
+  					</div>
+  				</div>
+			</div>
+			 <!-- <p style="color:#2b2b2b; font-size:22px;font-weight:600; text-align: center; margin-bottom: 20px;">LOG IN </p>-->
+	        	<!-- <label class="item item-input-inset"  style="margin-bottom: 0;">
+					<i class="icon ion-android-person placeholder-icon"></i>
+					<input type="text" placeholder="Username">
+				</label>
+				<label class="item item-input-inset" style="margin-bottom: 0;">
+					<i class="icon ion-key placeholder-icon"></i>
+					<input type="password" placeholder="Password">
+				</label> -->
+
+				<form name="loginForm" ng-submit="signin(email,password)"  novalidate> 
+                    
+	                <label class="item item-input-inset"  style="margin-bottom: 0;">
+					<i class="icon ion-android-person placeholder-icon"></i>
+					<input type="text" placeholder="Email Or Username" ng-model="email" ng-unique="{key: 'registration' , property: 'email' }" required>
+				</label>
+                    <label class="">
+                       <span style="color:red" ng-show="loginForm.email.$dirty && loginForm.email.$invalid">
+                        <span ng-show="loginForm.email.$error.required">Email Or username is required.</span>
+                        <!-- <span ng-show="loginForm.email.$error.email">Invalid email address.</span> -->
+                        </span>
+                    </label>
+	                
+
+	                <label class="item item-input-inset" style="margin-bottom: 0;">
+					<i class="icon ion-key placeholder-icon"></i>
+					<input type="password" placeholder="Password" ng-model="password" ng-model="password" required show-hide-input>
+				</label>
+
+	           		
+	                <button class="button button-block button-royal" style="background: #e55994; border: none; font-family: 'Exo 2', sans-serif; box-shadow: none; margin-top: 30px;" " ng-click="check_login()">Login</button>
+	                </form>
+				
+	            
+	            <p style="color:#858585; font-family: 'Exo 2', sans-serif; width:100px; border-bottom:2px solid #ff9ec7; font-size:16px;font-weight:300; text-align: center; margin: 15px auto; padding: 0 0 5px;" ng-click="register()">Register Now</p>
+	             <p style="color:#858585; font-family: 'Exo 2', sans-serif; width:100px; border-bottom:2px solid #ff9ec7; font-size:16px;font-weight:300; text-align: center; margin: 15px auto; padding: 0 0 5px;" ng-click="forget()">Forget Password</p>
+				 
+				
+
+	           
+	     	</div>
+         </div>
+	</div>
+  </ion-content>
+</ion-view>
